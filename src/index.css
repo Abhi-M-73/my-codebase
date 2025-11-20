@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+:root {
+    --sidebarBg: #f5f5f7;
+    --sidebarText: #000000;
+    --sidebarItem: #29303a;
+    --mainText: #eef5fe;
+    --mainBg: #0f172a;
+    --btnColor: #ec5509;
+    --btnHoverColor: #bb4c10;
+}
