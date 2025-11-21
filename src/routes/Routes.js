@@ -9,5 +9,12 @@ export const AuthRoutes = {
 export const AuthenicatedRoutes = {
     LANDING: "/",
     USER_DASHBOARD: "/dashboard",
+    USER_DIRECT_TEAM: "/direct-team",
+    USER_LEVEL_TEAM: "/level-team",
+    USER_REFERRAL_INCOME: "/referral-income",
+    USER_ROI_INCOME: "/roi-income",
+    USER_LEVEL_INCOME: "/level-income",
+
+
     ADMIN_DASHBOARD: "/admin/dashboard",
 }

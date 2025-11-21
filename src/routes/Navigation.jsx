@@ -5,8 +5,7 @@ import Authenticate from './Authenticate';
 import { useSelector } from 'react-redux';
 
 const Navigation = () => {
-    const authInfo = useSelector((state) => state.auth);
-    const token = authInfo.token || null;
+    const { token } = useSelector((state) => state.auth);
 
     return (
         <>

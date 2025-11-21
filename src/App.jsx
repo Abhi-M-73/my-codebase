@@ -1,8 +1,16 @@
+import { Toaster } from 'react-hot-toast'
 import Navigation from './routes/Navigation'
 
 const App = () => {
   return (
-    <Navigation />
+    <>
+      <Navigation />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
+    </>
+
   )
 }
 

@@ -74,7 +74,7 @@ const ReusableButton = ({
         {loading ? (
           <div className="spinner"></div>
         ) : (
-          Icon && <Icon className="w-5 h-5 text-gray-200" />
+          Icon && <Icon className="w-5 h-5 text-white" />
         )}
 
         <span className="text-xl">

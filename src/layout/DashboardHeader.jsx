@@ -1,13 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bell, LogOut, UserCircle2 } from 'lucide-react';
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
+import { useDispatch } from 'react-redux';
+import { setRole, setToken, setUser } from '../redux/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
-const DashboardHeader = ({ name = "User", email = "user@example.com", image }) => {
+const DashboardHeader = ({ name = "User", username = "username", email = "user@example.com", image }) => {
   const [open, setOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // close popup on click outside
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -35,27 +40,30 @@ const DashboardHeader = ({ name = "User", email = "user@example.com", image }) =
     }
   };
 
+  const handleLogout = () => {
+    dispatch(setUser(null));
+    dispatch(setToken(null));
+    dispatch(setRole(null));
+    navigate('/');
+  };
+
   return (
-    <div className="bg-white border-b border-gray-200 shadow-sm border relative">
+    <div className="bg-black/60 sticky top-0 z-50 backdrop-blur-2xl border-b border-gray-400 shadow-sm ">
       <div className="px-6 py-4">
         <div className="flex items-center justify-between">
-
-          {/* LEFT */}
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">
-              Hello, <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold text-gray-100">
+              Hello, <span className="text-[var(--btnColor)]">
                 {name}
               </span>
             </h1>
-            <p className="text-sm text-gray-500 mt-1">{currentDate}</p>
+            <p className="text-sm text-gray-200 mt-1">{currentDate}</p>
           </div>
 
-          {/* RIGHT */}
           <div className="flex items-center gap-4 relative">
-            {/* expand button */}
             <button
               onClick={toggleFullscreen}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg text-white hover:text-black hover:bg-gray-100 transition-colors"
             >
               {isFullscreen ? (
                 <AiOutlineFullscreenExit className="w-6 h-6" />
@@ -64,13 +72,11 @@ const DashboardHeader = ({ name = "User", email = "user@example.com", image }) =
               )}
             </button>
 
-            {/* Notifications */}
-            <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
-              <Bell className="w-6 h-6 text-gray-600" />
+            <button className="relative p-2 rounded-lg text-white hover:text-black hover:bg-gray-100 transition-colors">
+              <Bell className="w-6 h-6" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
 
-            {/* User Button */}
             <button
               onClick={() => setOpen(!open)}
               className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -79,12 +85,11 @@ const DashboardHeader = ({ name = "User", email = "user@example.com", image }) =
                 {image ? (
                   <img src={image} alt="profile" className="w-full h-full object-cover" />
                 ) : (
-                  name?.charAt(0).toUpperCase()
+                  username?.charAt(0).toUpperCase()
                 )}
               </div>
             </button>
 
-            {/* DROPDOWN POPUP */}
             {open && (
               <div
                 ref={dropdownRef}
@@ -96,17 +101,16 @@ const DashboardHeader = ({ name = "User", email = "user@example.com", image }) =
                     {image ? (
                       <img src={image} alt="profile" className="w-full h-full object-cover" />
                     ) : (
-                      name?.charAt(0).toUpperCase()
+                      username?.charAt(0).toUpperCase()
                     )}
                   </div>
 
                   <div>
-                    <p className="font-semibold text-gray-800">{name}</p>
-                    <p className="text-xs text-gray-500">{email}</p>
+                    <p className="font-semibold text-lg text-gray-800">{username}</p>
+                    <p className="text-sm text-gray-500">{email}</p>
                   </div>
                 </div>
 
-                {/* Options */}
                 <div className="mt-3 space-y-1">
                   <button className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700">
                     <UserCircle2 className="w-4 h-4" /> Profile
@@ -114,7 +118,7 @@ const DashboardHeader = ({ name = "User", email = "user@example.com", image }) =
 
                   <button
                     className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-red-100 text-red-600"
-                    onClick={() => alert("Logout clicked")}
+                    onClick={handleLogout}
                   >
                     <LogOut className="w-4 h-4" /> Logout
                   </button>

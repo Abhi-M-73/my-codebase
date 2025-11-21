@@ -5,8 +5,6 @@ import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "Home", path: "/" },
-  { name: "Pricing", path: "/pricing" },
-  { name: "Strategy Tips", path: "/strategy" },
   { name: "About Us", path: "/about" },
   { name: "Blog", path: "/blog" },
   { name: "Contact Us", path: "/contact" },
@@ -55,7 +53,7 @@ export default function Header() {
       {/* thin gradient line */}
       <div className="h-[2px] w-full bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-600/60 opacity-70" />
 
-      <div className="max-w-[1200px] px-4 sm:px-6 py-5  lg:px-8 mx-auto">
+      <div className="w-full bg-black/80 px-4 sm:px-6 py-5 lg:px-8 mx-auto">
         <div className="h-16 flex items-center justify-between">
           {/* Logo */}
           <button
@@ -64,7 +62,7 @@ export default function Header() {
             aria-label="Go to home"
           >
             {/* <img src={nexoLogo1} alt="" className="w-10 h-10" /> */}
-            <span className="text-4xl font-extrabold tracking-tight">
+            <span className="text-3xl text-white font-extrabold tracking-tight">
               TRADING <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">KING</span>
             </span>
             <span className="ml-1 h-2 w-2 rounded-full bg-yellow-400 shadow-[0_0_12px_rgba(251,191,36,0.8)] group-hover:scale-110 transition" />
@@ -78,7 +76,7 @@ export default function Header() {
                 to={link.path}
                 className={({ isActive }) =>
                   [
-                    "relative text-xl font-semibold transition-colors",
+                    "relative text-lg font-semibold transition-colors",
                     "text-slate-200 hover:text-yellow-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/60 rounded",
                     "after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-yellow-400 after:to-yellow-600 after:transition-all after:duration-300 hover:after:w-full",
                     isActive ? "text-yellow-300 after:w-full" : ""
@@ -92,7 +90,7 @@ export default function Header() {
             {/* CTA */}
             <button
               onClick={() => navigate("/login")}
-              className="relative ml-2 inline-flex items-center justify-center rounded-full px-5 py-2.5 text-black font-bold text-xl
+              className="relative ml-2 inline-flex items-center justify-center rounded-full px-5 py-2 text-black font-bold text-lg
                          bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-[0_8px_24px_rgba(251,191,36,0.35)]
                          transition-transform hover:scale-[1.03] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400"
             >

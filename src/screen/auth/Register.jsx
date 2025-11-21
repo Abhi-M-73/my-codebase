@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import ReusableButton from '../../components/ui/ReusableButton';
-import { Lock, Mail, User } from 'lucide-react';
+import { Link2, Lock, Mail, Phone, User } from 'lucide-react';
 import ReusableForm from '../../components/ui/ReusableForm';
 import { Link } from 'react-router-dom';
+import { userRegister } from '../../api/user.api';
+import { useDispatch } from 'react-redux';
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +14,7 @@ const Register = () => {
     email: '',
     phone: '',
     password: '',
-    confirmPassword: ''
+    referralCode: ''
   });
 
   const handleInputChange = (e) => {
@@ -18,8 +22,27 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+
+  const { mutate, isPending, isSuccess, error } = useMutation({
+    mutationFn: userRegister,
+    onSuccess: (data) => {
+      toast.success("Registration Successful !");
+      // toast.success(`Username: ${data.user.username}`)
+    },
+    onError: (err) => {
+      toast.error(err?.response?.data?.message || "Something went wrong");
+    }
+  });
+
   const handleRegister = () => {
-    console.log(formData);
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      password: formData.password,
+      sponsorCode: formData.referralCode
+    };
+    mutate(payload);
   };
 
   return (
@@ -46,6 +69,16 @@ const Register = () => {
         icon={Mail}
       />
       <ReusableForm
+        type={"number"}
+        label={"Phone"}
+        name={"phone"}
+        value={formData.phone}
+        onChange={handleInputChange}
+        placeholder={"Enter Your Phone"}
+        required={true}
+        icon={Phone}
+      />
+      <ReusableForm
         type={"password"}
         label={"Password"}
         name={"password"}
@@ -54,6 +87,16 @@ const Register = () => {
         placeholder={"Enter Your Password"}
         required={true}
         icon={Lock}
+      />
+      <ReusableForm
+        type={"text"}
+        label={"Referral Code"}
+        name={"referralCode"}
+        value={formData.referralCode}
+        onChange={handleInputChange}
+        placeholder={"Enter Referral Code"}
+        required={true}
+        icon={Link2}
       />
 
       {/* <OtpInputWithButton
@@ -75,7 +118,7 @@ const Register = () => {
         <ReusableButton
           label="Register"
           onClick={handleRegister}
-          loading={false}
+          loading={isPending}
           icon={Lock}
           variant="primary"
           type="button"

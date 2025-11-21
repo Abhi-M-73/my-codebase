@@ -6,7 +6,7 @@ const Axios = axios.create({
     baseURL: backendConfig.base,
     headers: {
         "Content-Type": "application/json",
-        "Content-Type": "multipart/form-data",
+        // "Content-Type": "multipart/form-data",
     },
 });
 

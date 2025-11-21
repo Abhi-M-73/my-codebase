@@ -3,7 +3,13 @@ import ReusableForm from '../../components/ui/ReusableForm';
 import { Lock, Mail } from 'lucide-react';
 import ReusableButton from '../../components/ui/ReusableButton';
 import OtpInputWithButton from '../../components/ui/OtpInputWithButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setRole, setToken, setUser } from '../../redux/slices/authSlice';
+import { useMutation } from '@tanstack/react-query';
+import { userLogin } from '../../api/user.api';
+import { AuthenicatedRoutes } from '../../routes/routes';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -11,13 +17,28 @@ const Login = () => {
     password: '',
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: userLogin,
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Login Successful !");
+      dispatch(setUser(data?.user));
+      dispatch(setToken(data?.token));
+      dispatch(setRole(data?.user?.role));
+      navigate(AuthenicatedRoutes.USER_DASHBOARD);
+    }
+  });
+
   const handleLogin = () => {
-    console.log(formData);
+    mutate(formData);
   };
 
   return (
@@ -63,7 +84,7 @@ const Login = () => {
         <ReusableButton
           label="Login"
           onClick={handleLogin}
-          loading={false}
+          loading={isPending}
           icon={Lock}
           variant="primary"
           type="button"

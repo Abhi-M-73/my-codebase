@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
 :root {
-    --sidebarBg: #f5f5f7;
-    --sidebarText: #000000;
-    --sidebarItem: #29303a;
-    --mainText: #eef5fe;
-    --mainBg: #0f172a;
-    --btnColor: #ec5509;
-    --btnHoverColor: #bb4c10;
+    --btnColor: #f1b300;
+    --btnHoverColor: #ffdc18;
+}
+
+.mainBgColor {
+    @apply bg-gradient-to-br from-gray-900 via-black to-purple-900;
 }

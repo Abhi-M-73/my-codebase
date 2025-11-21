@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const AuthMain = ({ inner, name }) => {
     return (
-        <div className='bg-gradient-to-br from-gray-900 via-black to-purple-900 min-h-screen w-full flex items-center justify-center md:p-5 p-1 relative overflow-hidden'>
+        <div className='mainBgColor min-h-screen w-full flex items-center justify-center md:p-5 p-1 relative overflow-hidden'>
             <div className='absolute inset-0 overflow-hidden'>
                 <div className='absolute -top-40 -left-40 w-80 h-80 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse'></div>
                 <div className='absolute -bottom-40 -right-40 w-80 h-80 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse'></div>
@@ -51,10 +51,8 @@ const AuthMain = ({ inner, name }) => {
                             <div className='text-[var(--btnColor)] text-sm'>Rating</div>
                         </div>
                     </div>
-
                 </div>
 
-                {/* Right Side - Form Container with Glass Effect */}
                 <div className='md:w-1/2 w-full flex items-center justify-center'>
                     <div className='w-full max-w-xl bg-black/50 bg-opacity-10 backdrop-blur-xl p-8 rounded-3xl border border-gray-700 shadow-2xl'>
                         {inner}
