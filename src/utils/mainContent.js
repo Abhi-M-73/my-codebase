@@ -1,8 +1,7 @@
 
 export const MainContent = {
-    appName: "GLC Coin",
+    appName: "New Project",
     appLogo: "appLogoClr",
-    appLogoClr: "appLogoClr",
     appURL: "",
     contactNo: "+98 8969125123",
     email: "glczone.in@gmail.com",

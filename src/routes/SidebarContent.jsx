@@ -49,6 +49,29 @@ const SidebarContent = {
                 },
             ],
         },
+        {
+            id: "Investment",
+            icon: <Coins />,
+            name: "Investment",
+            options: [
+                {
+                    id: "Make Investment",
+                    name: "Make Investment",
+                    link: AuthenicatedRoutes.USER_MAKE_INVESTMENT,
+                },
+                {
+                    id: "Investment History",
+                    name: "Investment History",
+                    link: AuthenicatedRoutes.USER_INVESTMENT_HISTORY,
+                },
+                // {
+                //     id: "Deposit",
+                //     name: "Deposit",
+                //     link: AuthenicatedRoutes.USER_DEPOSIT,
+                // },
+                
+            ],
+        },
     ],
 
     Admin: [

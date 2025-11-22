@@ -10,6 +10,7 @@ import { useMutation } from '@tanstack/react-query';
 import { userLogin } from '../../api/user.api';
 import { AuthenicatedRoutes } from '../../routes/routes';
 import toast from 'react-hot-toast';
+import Loader from '../../components/ui/Loader';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -28,14 +29,20 @@ const Login = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: userLogin,
     onSuccess: (data) => {
-      console.log(data);
-      toast.success("Login Successful !");
+      toast.success(data?.message || "Login successful!");
       dispatch(setUser(data?.user));
       dispatch(setToken(data?.token));
       dispatch(setRole(data?.user?.role));
       navigate(AuthenicatedRoutes.USER_DASHBOARD);
+    },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message || "Login failed. Please try again."
+      );
     }
   });
+
+  if(isPending) return <Loader />;
 
   const handleLogin = () => {
     mutate(formData);

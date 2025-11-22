@@ -10,6 +10,9 @@ import UserLevelTeam from '../screen/user/team/UserLevelTeam';
 import UserReferralIncome from '../screen/user/income/UserReferralIncome';
 import UserLevelIncome from '../screen/user/income/UserLevelIncome';
 import UserRoiIncome from '../screen/user/income/UserRoiIncome';
+import UserDeposit from '../screen/user/payment/UserDeposit';
+import UserMakeInvestment from '../screen/user/investment/UserMakeInvestment';
+import UserInvestmentHistory from '../screen/user/investment/UserInvestmentHistory';
 
 const Authenticate = () => {
     const { role } = useSelector((state) => state.auth);
@@ -54,27 +57,56 @@ const Authenticate = () => {
                             <DashboardMain inner={<UserRoiIncome />} name="User ROI Income" />
                         }
                     />
+                    <Route
+                        path={AuthenicatedRoutes.USER_DEPOSIT}
+                        element={
+                            <DashboardMain inner={<UserDeposit />} name="User Deposit" />
+                        }
+                    />
+                    <Route
+                        path={AuthenicatedRoutes.USER_MAKE_INVESTMENT}
+                        element={
+                            <DashboardMain inner={<UserMakeInvestment />} name="User Make Investment" />
+                        }
+                    />
+                    <Route
+                        path={AuthenicatedRoutes.USER_INVESTMENT_HISTORY}
+                        element={
+                            <DashboardMain inner={<UserInvestmentHistory />} name="User Investment History" />
+                        }
+                    />
+
 
                 </>
             )}
 
+
+
+
             {role === "admin" && (
-                <Route
-                    path="/admin/dashboard"
-                    element={
-                        <DashboardMain inner={<AdminDashboard />} name="Admin Dashboard" />
-                    }
-                />
+                <>
+                    <Route
+                        path={AuthenicatedRoutes.LANDING}
+                        element={<Navigate to={AuthenicatedRoutes.ADMIN_DASHBOARD} replace />}
+                    />
+
+                    <Route
+                        path={AuthenicatedRoutes.ADMIN_DASHBOARD}
+                        element={
+                            <DashboardMain inner={<AdminDashboard />} name="Admin Dashboard" />
+                        }
+                    />
+                </>
             )}
 
-            <Route
+            {/* <Route
                 path="*"
                 element={
                     role === "admin"
                         ? <Navigate to="/admin/dashboard" />
-                        : <Navigate to="/dashboard" />
+                        : <Navigate to="/Login" />
                 }
-            />
+            /> */}
         </Routes>
     );
 };

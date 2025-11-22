@@ -39,15 +39,15 @@ const AuthMain = ({ inner, name }) => {
                     {/* Stats Cards */}
                     <div className='grid grid-cols-3 gap-4 mb-12'>
                         <div className='bg-black bg-opacity-5 backdrop-blur-lg rounded-xl p-4 border border-gray-700'>
-                            <div className='text-3xl font-bold text-white mb-1'>50K+</div>
+                            <div className='text-3xl font-bold text-white mb-1'>10K+</div>
                             <div className='text-[var(--btnColor)] text-sm'>Active Users</div>
                         </div>
                         <div className='bg-black bg-opacity-5 backdrop-blur-lg rounded-xl p-4 border border-gray-700'>
-                            <div className='text-3xl font-bold text-white mb-1'>99.9%</div>
+                            <div className='text-3xl font-bold text-white mb-1'>97.9%</div>
                             <div className='text-[var(--btnColor)] text-sm'>Uptime</div>
                         </div>
                         <div className='bg-black bg-opacity-5 backdrop-blur-lg rounded-xl p-4 border border-gray-700'>
-                            <div className='text-3xl font-bold text-white mb-1'>4.9★</div>
+                            <div className='text-3xl font-bold text-white mb-1'>4.3★</div>
                             <div className='text-[var(--btnColor)] text-sm'>Rating</div>
                         </div>
                     </div>

@@ -1,8 +1,8 @@
 export const AuthRoutes = {
     USER_LOGIN: "/login",
     USER_REGISTER: "/register",
-    USER_FORGOT_PASSWORD: "/forgot-password",
-    USER_RESET_PASSWORD: "/reset-password",
+    
+    ADMIN_LOGIN: "/admin/login",
 }
 
 
@@ -14,6 +14,9 @@ export const AuthenicatedRoutes = {
     USER_REFERRAL_INCOME: "/referral-income",
     USER_ROI_INCOME: "/roi-income",
     USER_LEVEL_INCOME: "/level-income",
+    USER_DEPOSIT: "/deposit",
+    USER_MAKE_INVESTMENT: "/make-investment",
+    USER_INVESTMENT_HISTORY: "/investment-history",
 
 
     ADMIN_DASHBOARD: "/admin/dashboard",

@@ -7,6 +7,7 @@ import { userRegister } from '../../api/user.api';
 import { useDispatch } from 'react-redux';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import Loader from '../../components/ui/Loader';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -23,11 +24,10 @@ const Register = () => {
   };
 
 
-  const { mutate, isPending, isSuccess, error } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: userRegister,
     onSuccess: (data) => {
-      toast.success("Registration Successful !");
-      // toast.success(`Username: ${data.user.username}`)
+      toast.success(data?.message || "Registration successful! Please login." );
     },
     onError: (err) => {
       toast.error(err?.response?.data?.message || "Something went wrong");
@@ -44,6 +44,8 @@ const Register = () => {
     };
     mutate(payload);
   };
+
+  if(isPending) return <Loader />;
 
   return (
     <div className='space-y-4'>

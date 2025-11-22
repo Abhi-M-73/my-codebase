@@ -116,15 +116,15 @@ const ReusableDataTable = ({ data = [], columns = [], className = "" }) => {
                         onChange={(e) => setGlobalFilter(e.target.value)}
                         placeholder={"Search Records"}
                         icon={SearchCheck}
-                     />
-                    
+                    />
+
                     {/* <Clock className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-8 h-8" /> */}
                 </div>
                 <button
                     onClick={exportToExcel}
-                    className="w-fit bg-[var(--cyan-active)] bg-opacity-20 border !border-gray-500 hover:bg-gray-700 text-white px-4 py-3 rounded-lg shadow"
+                    className="w-fit border border-[var(--btnColor)] hover:bg-[var(--btnColor)] text-[var(--btnColor)] hover:text-white p-3 rounded-lg shadow"
                 >
-                    <GrDownload className="text-3xl" />
+                    <GrDownload className="text-xl" />
                 </button>
             </div>
 
@@ -150,7 +150,7 @@ const ReusableDataTable = ({ data = [], columns = [], className = "" }) => {
                             <div className="flex flex-col">
                                 {/* Column label with sort icon */}
                                 <div
-                                    className={`flex items-center ${col.sortable !== false ? "cursor-pointer" : ""}`}
+                                    className={`flex items-center gap-4 text-[1rem] ${col.sortable !== false ? "cursor-pointer" : ""}`}
                                     onClick={() =>
                                         col.sortable !== false &&
                                         setSortConfig((prev) => ({
@@ -180,15 +180,15 @@ const ReusableDataTable = ({ data = [], columns = [], className = "" }) => {
                             col.render
                                 ? col.render(row[col.key], row, options.rowIndex)
                                 : row[col.key] !== undefined && row[col.key] !== null
-                                ? row[col.key]
-                                : "-"
+                                    ? row[col.key]
+                                    : "-"
                         }
                     />
                 ))}
             </DataTable>
 
             {/* 📑 Custom Pagination */}
-            <div className="flex justify-between items-center mt-4 text-lg text-gray-200">
+            <div className="flex justify-between items-center mt-4 text-sm text-gray-200">
                 <span>
                     Showing {first + 1} to {Math.min(first + rows, sortedData?.length)} of{" "}
                     {sortedData?.length} entries

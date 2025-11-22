@@ -8,7 +8,7 @@ const DashboardMain = ({ inner, name = "user", }) => {
     const roleKey = role;
 
     return (
-        <div className="min-h-screen mainBgColor">
+        <div className="min-h-screen bg-gray-950">
             <Sidebar userRole={roleKey} />
             <div className="lg:ml-64">
                 <div className="">

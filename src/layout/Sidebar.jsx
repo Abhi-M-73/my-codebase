@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import SidebarContent from "../routes/SidebarContent";
 import { useSelector } from "react-redux";
+import { MainContent } from "../utils/mainContent";
 
 const Sidebar = () => {
   const {username, role, email} = useSelector((state) => state.auth?.user);
@@ -46,12 +47,17 @@ const Sidebar = () => {
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 w-64 shadow-2xl`}
       >
-        <div className="flex flex-col h-full">
-          <div className="p-6 border-b border-gray-700">
-            <h1 className="text-2xl capitalize font-bold text-[var(--btnColor)]">
-              {roleKey} Panel
+        <div className="flex flex-col h-full shadow">
+          <div className="p-4 border-b border-gray-500 flex items-center gap-3">
+            <div>
+              <img src={MainContent.appLogo} alt="logo" className="h-14 w-14 object-cover rounded-full"/>
+            </div>
+            <div>
+              <h1 className="text-2xl capitalize font-bold text-[var(--btnColor)]">
+              {MainContent.appName}
             </h1>
             <p className="text-gray-300 text-sm mt-1">Welcome back</p>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -107,7 +113,7 @@ const Sidebar = () => {
                         className={({ isActive }) =>
                           `block px-4 py-2 rounded-lg text-sm transition-all duration-200 w-full ${
                             isActive
-                              ? "bg-blue-600 shadow-lg shadow-blue-600/50"
+                              ? "bg-[var(--btnColor)] shadow-lg shadow-[var(--btnColor)]/50 scale-105"
                               : "text-gray-300 hover:bg-gray-700 hover:text-white"
                           }`
                         }
@@ -124,11 +130,11 @@ const Sidebar = () => {
           {/* Footer */}
           <div className="p-4 border-t border-gray-700">
             <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-700/50">
-              <div className="w-10 h-10 rounded-full bg-[var(--btnColor)] flex items-center justify-center text-sm font-bold">
-                {username.charAt(0).toUpperCase()}
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-sm font-bold">
+                {username?.charAt(0)?.toUpperCase() || "A"}
               </div>
               <div>
-                <p className="font-medium text-sm">{username}</p>
+                <p className="font-medium text-sm">{username || "Admin"}</p>
                 <p className="text-xs text-gray-400">{email}</p>
               </div>
             </div>

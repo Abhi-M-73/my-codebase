@@ -5,6 +5,7 @@ import { AuthRoutes } from './routes';
 import AuthMain from '../layout/AuthMain';
 import { useSelector } from 'react-redux';
 import Register from '../screen/auth/Register';
+import AdminLogin from '../screen/auth/AdminLogin';
 
 const Auth = () => {
     const authInfo = useSelector((state) => state.auth);
@@ -15,6 +16,7 @@ const Auth = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path={AuthRoutes.USER_REGISTER} element={<AuthMain inner={<Register />} name={"User Register"} />} />
             <Route path={AuthRoutes.USER_LOGIN} element={<AuthMain inner={<Login />} name={"User Login"} />} />
+            <Route path={AuthRoutes.ADMIN_LOGIN} element={<AuthMain inner={<AdminLogin />} name={"Admin Login"} />} />
             {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
         </Routes>
     )

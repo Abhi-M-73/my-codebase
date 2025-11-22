@@ -8,3 +8,26 @@
 .mainBgColor {
     @apply bg-gradient-to-br from-gray-900 via-black to-purple-900;
 }
+
+/* Thin Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;      /* <-- Yaha se width patli hoti hai */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Thumb */
+::-webkit-scrollbar-thumb {
+  background: #a1a1a1;
+  border-radius: 20px;
+}
+
+/* Thumb hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #808080;
+}
+
+

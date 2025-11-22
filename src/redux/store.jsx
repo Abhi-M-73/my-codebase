@@ -17,11 +17,11 @@ import storage from "redux-persist/lib/storage";
 const authPersistConfig = {
     key: "auth",
     storage,
+    whitelist: ["token", "user", "role", "isAuthenticated"],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
-// ---- Store Setup ----
 export const store = configureStore({
     reducer: {
         auth: persistedAuthReducer,
