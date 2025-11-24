@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
 
 const Login = () => {
+  const queryClient = useMutation();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -33,6 +34,7 @@ const Login = () => {
       dispatch(setUser(data?.user));
       dispatch(setToken(data?.token));
       dispatch(setRole(data?.user?.role));
+      queryClient.invalidateQueries(['fetchProfile']);
       navigate(AuthenicatedRoutes.USER_DASHBOARD);
     },
     onError: (error) => {
@@ -42,9 +44,13 @@ const Login = () => {
     }
   });
 
-  if(isPending) return <Loader />;
+  if (isPending) return <Loader />;
 
   const handleLogin = () => {
+    if (!formData.email || !formData.password) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
     mutate(formData);
   };
 
@@ -92,6 +98,7 @@ const Login = () => {
           label="Login"
           onClick={handleLogin}
           loading={isPending}
+          disabled={isPending}
           icon={Lock}
           variant="primary"
           type="button"

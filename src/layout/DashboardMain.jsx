@@ -4,12 +4,12 @@ import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
 
 const DashboardMain = ({ inner, name = "user", }) => {
-    const { role, username, email } = useSelector((state) => state.auth?.user);
-    const roleKey = role;
+    const { role } = useSelector((state) => state?.auth);
+    const { email, username } = useSelector((state) => state?.auth?.user) || {};
 
     return (
-        <div className="min-h-screen bg-gray-950">
-            <Sidebar userRole={roleKey} />
+        <div className="min-h-screen mainBgColor">
+            <Sidebar userRole={role} />
             <div className="lg:ml-64">
                 <div className="">
                     <DashboardHeader name={name} email={email} username={username} />

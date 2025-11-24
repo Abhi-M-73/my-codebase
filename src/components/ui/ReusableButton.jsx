@@ -15,7 +15,7 @@ const ReusableButton = ({
 
   const variants = {
     primary:
-      "w-full py-2 px-4 bg-[var(--btnColor)] hover:bg-[var(--btnHoverColor)] text-white disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed",
+      "w-full py-2 px-4 bg-[var(--btnColor)] hover:bg-[var(--btnHoverColor)] text-black disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed",
     header:
       "lg:hidden fixed top-[2px] left-0 right-0 z-50 mx-3 rounded-2xl border border-yellow-400/20 bg-black/90 supports-[backdrop-filter]:backdrop-blur-2xl py-2",
   };
@@ -74,7 +74,7 @@ const ReusableButton = ({
         {loading ? (
           <div className="spinner"></div>
         ) : (
-          Icon && <Icon className="w-5 h-5 text-white" />
+          Icon && <Icon className="w-5 h-5 text-black" />
         )}
 
         <span className="text-xl">

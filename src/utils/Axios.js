@@ -1,6 +1,7 @@
 import axios from "axios";
 import { backendConfig } from "./mainContent";
-import { store } from "../redux/store"; // <-- IMPORTANT: import store
+import { store } from "../redux/store";
+import { setRole, setToken, setUser } from "../redux/slices/authSlice";
 
 const Axios = axios.create({
   withCredentials: true,
@@ -8,7 +9,6 @@ const Axios = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
 });
 
 Axios.interceptors.request.use((config) => {
@@ -24,8 +24,9 @@ Axios.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
+      store.dispatch(setUser(null));
+      store.dispatch(setToken(null));
+      store.dispatch(setRole(null));
       window.location.href = "/login";
     }
     return Promise.reject(error);

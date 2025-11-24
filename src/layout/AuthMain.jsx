@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 const AuthMain = ({ inner, name }) => {
     return (
         <div className='mainBgColor min-h-screen w-full flex items-center justify-center md:p-5 p-1 relative overflow-hidden'>
-            <div className='absolute inset-0 overflow-hidden'>
+            {/* <div className='absolute inset-0 overflow-hidden'>
                 <div className='absolute -top-40 -left-40 w-80 h-80 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse'></div>
                 <div className='absolute -bottom-40 -right-40 w-80 h-80 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse'></div>
                 <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse'></div>
-            </div>
+            </div> */}
 
             <div className='w-full max-w-6xl flex gap-10 relative z-10'>
                 {/* Left Side - Enhanced Design */}

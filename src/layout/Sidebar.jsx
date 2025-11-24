@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { MainContent } from "../utils/mainContent";
 
 const Sidebar = () => {
-  const {username, role, email} = useSelector((state) => state.auth?.user);
+  const { username, role, email } = useSelector((state) => state.auth?.user);
   const [expandedMenus, setExpandedMenus] = useState({});
   const [isOpen, setIsOpen] = useState(true);
 
@@ -43,20 +43,19 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-screen mainBgColor text-white z-40 transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 w-64 shadow-2xl`}
+        className={`fixed top-0 left-0 h-screen mainBgColor border-r border-gray-800 text-white z-40 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0 w-64 shadow-2xl`}
       >
         <div className="flex flex-col h-full shadow">
-          <div className="p-4 border-b border-gray-500 flex items-center gap-3">
+          <div className="p-4 border-b border-gray-800 flex items-center gap-3">
             <div>
-              <img src={MainContent.appLogo} alt="logo" className="h-14 w-14 object-cover rounded-full"/>
+              <img src={MainContent.appLogo} alt="logo" className="h-14 w-14 object-cover rounded-full" />
             </div>
             <div>
               <h1 className="text-2xl capitalize font-bold text-[var(--btnColor)]">
-              {MainContent.appName}
-            </h1>
-            <p className="text-gray-300 text-sm mt-1">Welcome back</p>
+                {MainContent.appName}
+              </h1>
+              <p className="text-gray-300 text-sm mt-1">Welcome back</p>
             </div>
           </div>
 
@@ -71,10 +70,9 @@ const Sidebar = () => {
                       setIsOpen(false);
                     }}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 w-full ${
-                        isActive
-                          ? "bg-[var(--btnColor)] shadow-lg shadow-blue-600/50 scale-105"
-                          : "hover:bg-gray-700 hover:translate-x-1"
+                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 w-full ${isActive
+                        ? "bg-[var(--btnColor)] shadow-lg shadow-blue-600/50 scale-105"
+                        : "hover:bg-gray-700 hover:translate-x-1"
                       }`
                     }
                   >
@@ -111,10 +109,9 @@ const Sidebar = () => {
                           setIsOpen(false);
                         }}
                         className={({ isActive }) =>
-                          `block px-4 py-2 rounded-lg text-sm transition-all duration-200 w-full ${
-                            isActive
-                              ? "bg-[var(--btnColor)] shadow-lg shadow-[var(--btnColor)]/50 scale-105"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                          `block px-4 py-2 rounded-lg text-sm transition-all duration-200 w-full ${isActive
+                            ? "bg-[var(--btnColor)] shadow-lg shadow-[var(--btnColor)]/50 scale-105"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white"
                           }`
                         }
                       >

@@ -42,6 +42,10 @@ const AdminLogin = () => {
     });
 
     const handleAdminLogin = () => {
+        if (!formData.email || !formData.password) {
+            toast.error("Please fill in all required fields.");
+            return;
+        }
         mutate(formData);
     };
 

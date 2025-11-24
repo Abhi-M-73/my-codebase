@@ -8,6 +8,7 @@ import {
   ArrowRight,
   Shield,
   Zap,
+  X,
 } from "lucide-react";
 
 // Default USDT (BSC) config - override via props if needed
@@ -32,40 +33,20 @@ const DEFAULT_CHAIN = {
   blockExplorerUrls: ["https://bscscan.com/"],
 };
 
-/**
- * Reusable token payment component
- *
- * Props:
- * - amount: number | string  -> payment amount in token (e.g. USDT)
- * - walletType: "metamask" | "safepal" | undefined
- * - onSuccess: () => void
- * - onFailure: () => void
- *
- * - apiFn: (payload) => Promise   -> backend API function (e.g. buyPlanPackage)
- * - apiBasePayload: object        -> extra payload (e.g. { packageId, userId })
- *
- * Optional config:
- * - tokenAddress
- * - tokenAbi
- * - paymentAddress
- * - chainConfig
- * - storageKey
- * - tokenSymbol
- */
 const TokenPayment = ({
   amount,
   walletType,
-  onSuccess = () => {},
-  onFailure = () => {},
-  apiFn, // REQUIRED: backend API function (dynamic)
-  apiBasePayload = {}, // REQUIRED: base payload object (dynamic)
-
+  onSuccess = () => { },
+  onFailure = () => { },
+  apiFn,
+  apiBasePayload = {},
   tokenAddress = DEFAULT_USDT_ADDRESS,
   tokenAbi = DEFAULT_USDT_ABI,
   paymentAddress = import.meta.env.VITE_PAYMENT_ADDRESS,
   chainConfig = DEFAULT_CHAIN,
   storageKey = "pendingTx",
   tokenSymbol = "USDT",
+  setOpenPaymentModal
 }) => {
   const [loading, setLoading] = useState(false);
   const [investmentAmount, setInvestmentAmount] = useState(0);
@@ -77,11 +58,9 @@ const TokenPayment = ({
     const switchToChain = async () => {
       try {
         if (!window.ethereum) return;
-
         const currentChainId = await window.ethereum.request({
           method: "eth_chainId",
         });
-
         if (currentChainId !== chainConfig.chainId) {
           try {
             await window.ethereum.request({
@@ -107,18 +86,16 @@ const TokenPayment = ({
     switchToChain();
   }, [chainConfig]);
 
-  // Update recipient if env changes
   useEffect(() => {
     setRecipientAddress(paymentAddress);
   }, [paymentAddress]);
 
-  // Set investment amount from props
   useEffect(() => {
     if (!amount) return;
-    setInvestmentAmount(amount); // yaha tum chaho to "0.0001" bhi hardcode kar sakte ho
+    setInvestmentAmount(amount);
   }, [amount]);
 
-  // Handle pending transaction from localStorage
+
   useEffect(() => {
     const savedTx = localStorage.getItem(storageKey);
     if (!savedTx || !apiFn) return;
@@ -286,17 +263,14 @@ const TokenPayment = ({
       });
 
       await tx.wait();
-
-      // Save for retry if needed
       localStorage.setItem(
         storageKey,
         JSON.stringify({
           txHash: tx.hash,
           amount: amount,
-          apiBasePayload, // store so we can reuse on refresh
+          apiBasePayload,
         })
       );
-
       await transactionHandler(tx.hash, amount, apiBasePayload);
     } catch (error) {
       console.error("Error during token transfer:", error);
@@ -312,10 +286,8 @@ const TokenPayment = ({
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-[40vh] p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 rounded-3xl shadow-2xl border border-emerald-500/20 overflow-hidden">
+    <div className="relative flex flex-col items-center justify-center min-h-[40vh] p-8 bg-gradient-to-br from-emerald-950 via-black to-emerald-950 rounded-3xl shadow-2xl border border-cyan-600 overflow-hidden">
       {loading && <h1>Loading..</h1>}
-
-      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-700"></div>
@@ -323,9 +295,15 @@ const TokenPayment = ({
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-md">
-        {/* Header Section */}
+        <button
+                    onClick={() => setOpenPaymentModal(false)}
+                    className="absolute -top-2 -right-8 p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 group"
+                  >
+                    <X className="w-8 h-8 text-gray-300 group-hover:text-gray-600" />
+                  </button>
+        
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 mb-4 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg shadow-emerald-500/30">
+          <div className="inline-flex items-center justify-center w-20 h-20 mb-4 bg-gradient-to-br from-emerald-700 to-emerald-900 rounded-2xl shadow-lg shadow-emerald-500/30">
             <Wallet className="w-10 h-10 text-white" />
           </div>
 
@@ -333,7 +311,7 @@ const TokenPayment = ({
             Secure Payment
           </h3>
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
+          <div className="inline-flex items-center gap-2 px-4 py-2 border border-emerald-500/30 rounded-full">
             <Shield className="w-4 h-4 text-emerald-400" />
             <span className="text-sm text-emerald-300 font-medium">
               Protected by {chainConfig.chainName}
@@ -342,9 +320,9 @@ const TokenPayment = ({
         </div>
 
         {/* Amount Display */}
-        <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 mb-6 shadow-xl">
+        <div className="bg-white/10 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 mb-6 shadow-xl">
           <div className="text-center">
-            <p className="text-sm text-slate-400 mb-2 uppercase tracking-wider">
+            <p className="text-sm text-gray-200 mb-2 uppercase tracking-wider">
               Payment Amount
             </p>
             <div className="flex items-baseline justify-center gap-2">
@@ -355,7 +333,7 @@ const TokenPayment = ({
                 {tokenSymbol}
               </span>
             </div>
-            <div className="flex items-center justify-center gap-2 mt-3 text-xs text-slate-500">
+            <div className="flex items-center justify-center gap-2 mt-3 text-xs text-gray-300">
               <Zap className="w-3 h-3" />
               <span>Fast & Secure Transaction</span>
             </div>
@@ -397,11 +375,10 @@ const TokenPayment = ({
               <button
                 onClick={handlePayment}
                 disabled={loading || !walletConnected || !recipientAddress}
-                className={`group relative w-full py-4 text-lg font-semibold rounded-xl shadow-lg transition-all duration-300 transform overflow-hidden ${
-                  loading || !recipientAddress
+                className={`group relative w-full py-4 text-lg font-semibold rounded-xl shadow-lg transition-all duration-300 transform overflow-hidden ${loading || !recipientAddress
                     ? "bg-slate-700 cursor-not-allowed text-slate-400 shadow-none"
                     : "bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98]"
-                }`}
+                  }`}
               >
                 {!loading && !recipientAddress && (
                   <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-0 group-hover:opacity-20 transition-opacity"></span>

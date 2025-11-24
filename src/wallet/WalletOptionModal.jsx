@@ -24,15 +24,7 @@ const DEFAULT_WALLETS = [
   },
 ];
 
-/**
- * Reusable Wallet Option Modal
- *
- * Props:
- * - isOpen: boolean              -> modal dikhana hai ya nahi
- * - onClose: () => void          -> modal band karne ka function
- * - onSelectWallet: (id) => void -> jab wallet select ho
- * - wallets: [] (optional)       -> custom wallets list (default: DEFAULT_WALLETS)
- */
+
 const WalletOptionModal = ({
   isOpen,
   onClose,
@@ -47,9 +39,8 @@ const WalletOptionModal = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
-      <div className="bg-black/80 border !border-gray-500 rounded-2xl shadow-2xl max-w-lg w-full mx-auto transform transition-all duration-300 animate-scale-in">
-        {/* Header */}
+    <div className="fixed inset-0 bg-black/5 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="bg-gradient-to-br from-emerald-950 via-black to-emerald-950 border !border-gray-500 rounded-2xl shadow-2xl max-w-lg w-full mx-auto transform transition-all duration-300 animate-scale-in">
         <div className="relative px-6 py-4 border-b border-white-100">
           <h2 className="text-3xl font-bold text-white-800 text-center">
             Choose Wallet
@@ -65,7 +56,6 @@ const WalletOptionModal = ({
           </button>
         </div>
 
-        {/* Wallet Options */}
         <div className="p-6 space-y-3">
           {wallets.map((wallet, index) => (
             <button
@@ -118,14 +108,13 @@ const WalletOptionModal = ({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-gray-50 rounded-b-2xl">
+        <div className="px-6 py-4 bg-white rounded-b-2xl">
           <p className="text-sm text-gray-800 text-center">
             By connecting, you agree to our Terms of Service and Privacy Policy
           </p>
         </div>
       </div>
 
-      {/* Agar tum Next.js nahi use kar rahe ho aur style jsx pasand nahi, to is block ko hata bhi sakte ho */}
       <style jsx>{`
         @keyframes fade-in {
           from {

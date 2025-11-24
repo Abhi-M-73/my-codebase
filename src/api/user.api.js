@@ -36,3 +36,18 @@ export const getDirectTeam = async () => {
     const response = await Axios.get(`${API}/direct-user`);
     return response.data;
 }
+
+export const getDirectreferralIncome = async () => {
+    const response = await Axios.get(`${API}/get-directreferralIncome-history`);
+    return response.data;
+}
+
+export const getLevelTeam = async () => {
+    const response = await Axios.get(`${API}/get-levelincome-history`);
+    return response.data;
+}
+
+export const getUserProfile = async () => {
+    const response = await Axios.get(`${API}/get-profile`);
+    return response.data;
+}

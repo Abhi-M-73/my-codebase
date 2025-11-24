@@ -1,6 +1,5 @@
-import { Coins, LayoutDashboard, User } from "lucide-react";
+import { BanknoteArrowUp, CircleUser, Coins, LayoutDashboard, User } from "lucide-react";
 import { AuthenicatedRoutes } from "./routes";
-import { AiFillMoneyCollect } from "react-icons/ai";
 
 const SidebarContent = {
     User: [
@@ -51,7 +50,7 @@ const SidebarContent = {
         },
         {
             id: "Investment",
-            icon: <Coins />,
+            icon: <BanknoteArrowUp />,
             name: "Investment",
             options: [
                 {
@@ -64,13 +63,19 @@ const SidebarContent = {
                     name: "Investment History",
                     link: AuthenicatedRoutes.USER_INVESTMENT_HISTORY,
                 },
-                // {
-                //     id: "Deposit",
-                //     name: "Deposit",
-                //     link: AuthenicatedRoutes.USER_DEPOSIT,
-                // },
-                
+                {
+                    id: "Deposit",
+                    name: "Deposit",
+                    link: AuthenicatedRoutes.USER_DEPOSIT,
+                },
+
             ],
+        },
+        {
+            id: "Profile",
+            icon: <CircleUser />,
+            name: "Profile",
+            link: AuthenicatedRoutes.USER_PROFILE,
         },
     ],
 

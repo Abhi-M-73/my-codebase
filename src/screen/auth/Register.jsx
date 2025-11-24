@@ -4,7 +4,6 @@ import { Link2, Lock, Mail, Phone, User } from 'lucide-react';
 import ReusableForm from '../../components/ui/ReusableForm';
 import { Link } from 'react-router-dom';
 import { userRegister } from '../../api/user.api';
-import { useDispatch } from 'react-redux';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
@@ -27,14 +26,20 @@ const Register = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: userRegister,
     onSuccess: (data) => {
-      toast.success(data?.message || "Registration successful! Please login." );
+      toast.success(data?.message || "Registration successful!");
     },
     onError: (err) => {
-      toast.error(err?.response?.data?.message || "Something went wrong");
+      toast.error(
+        err?.response?.data?.message || "Registration failed. Please try again."
+      );
     }
   });
 
   const handleRegister = () => {
+    if (!formData.name || !formData.email || !formData.phone || !formData.password) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
     const payload = {
       name: formData.name,
       email: formData.email,
@@ -45,7 +50,7 @@ const Register = () => {
     mutate(payload);
   };
 
-  if(isPending) return <Loader />;
+  if (isPending) return <Loader />;
 
   return (
     <div className='space-y-4'>
@@ -121,6 +126,7 @@ const Register = () => {
           label="Register"
           onClick={handleRegister}
           loading={isPending}
+          disabled={isPending}
           icon={Lock}
           variant="primary"
           type="button"

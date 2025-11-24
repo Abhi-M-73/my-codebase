@@ -17,6 +17,7 @@ export const AuthenicatedRoutes = {
     USER_DEPOSIT: "/deposit",
     USER_MAKE_INVESTMENT: "/make-investment",
     USER_INVESTMENT_HISTORY: "/investment-history",
+    USER_PROFILE: "/profile",
 
 
     ADMIN_DASHBOARD: "/admin/dashboard",

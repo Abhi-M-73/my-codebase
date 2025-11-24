@@ -53,7 +53,7 @@ export default function Header() {
       {/* thin gradient line */}
       <div className="h-[2px] w-full bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-600/60 opacity-70" />
 
-      <div className="w-full bg-black/80 px-4 sm:px-6 py-5 lg:px-8 mx-auto">
+      <div className="w-full bg-black/80 px-4 sm:px-6 py-5 lg:px-8 mx-auto border-b border-yellow-400/20 ">
         <div className="h-16 flex items-center justify-between">
           {/* Logo */}
           <button
@@ -63,7 +63,7 @@ export default function Header() {
           >
             {/* <img src={nexoLogo1} alt="" className="w-10 h-10" /> */}
             <span className="text-3xl text-white font-extrabold tracking-tight">
-              TRADING <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">KING</span>
+              INVESTMENT <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">KING</span>
             </span>
             <span className="ml-1 h-2 w-2 rounded-full bg-yellow-400 shadow-[0_0_12px_rgba(251,191,36,0.8)] group-hover:scale-110 transition" />
           </button>

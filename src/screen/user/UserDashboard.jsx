@@ -1,7 +1,9 @@
 import React from 'react';
 import { TrendingUp, DollarSign, CreditCard, Wallet, PiggyBank, ArrowUpRight, ArrowDownRight, Calendar, Award, Target, Activity, User } from 'lucide-react';
+import usefetchProfile from '../../hooks/usefetchProfile';
 
 const UserDashboard = () => {
+  usefetchProfile();
   
   const incomeData = [
     {

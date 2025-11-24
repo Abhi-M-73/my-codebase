@@ -3,7 +3,7 @@ import { Bell, LogOut, UserCircle2 } from 'lucide-react';
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../components/ui/Loader';
 
 const DashboardHeader = ({ name = "User", username = "Admin", email = "user@example.com", image }) => {
@@ -42,21 +42,20 @@ const DashboardHeader = ({ name = "User", username = "Admin", email = "user@exam
     }
   };
 
-const handleLogout = () => {
-  setLoading(true);  
+  const handleLogout = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      dispatch(logout());
+      navigate('/');
+    }, 1000);
+  };
 
-  setTimeout(() => {
-    setLoading(false);  
-    dispatch(logout()); 
-    navigate('/');      
-  }, 5000);             
-};
 
-
-  if(loading) return <Loader />;
+  if (loading) return <Loader />;
 
   return (
-    <div className="bg-black/60 sticky top-0 z-30 backdrop-blur-2xl border-b border-gray-400 shadow-sm w-full">
+    <div className="bg-black/60 sticky top-0 z-30 backdrop-blur-2xl border-b border-gray-700 shadow-sm w-full">
       <div className="px-4 sm:px-6 py-3 sm:py-4">
         {/* Small screen pe column, bade screen pe row */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between ">
@@ -103,7 +102,7 @@ const handleLogout = () => {
             {open && (
               <div
                 ref={dropdownRef}
-                className="absolute right-0 top-12 sm:top-14 w-56 sm:w-60 bg-white shadow-xl rounded-xl border border-gray-200 p-3 sm:p-4 z-40"
+                className="absolute right-0 top-12 sm:top-14 w-56 sm:w-60 mainBgColor backdrop-blur-2xl shadow-xl rounded-xl border border-gray-200 p-3 sm:p-4 z-40"
               >
                 {/* User Info */}
                 <div className="flex items-center gap-3 pb-3 border-b border-gray-200">
@@ -116,21 +115,21 @@ const handleLogout = () => {
                   </div>
 
                   <div className="min-w-0">
-                    <p className="font-semibold text-sm sm:text-base text-gray-800 truncate">{username}</p>
-                    <p className="text-xs sm:text-sm text-gray-500 truncate">{email}</p>
+                    <p className="font-semibold text-sm sm:text-base text-white truncate">{username}</p>
+                    <p className="text-xs sm:text-sm text-gray-300 truncate">{email}</p>
                   </div>
                 </div>
 
                 <div className="mt-3 space-y-1">
-                  <button className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700 text-sm">
-                    <UserCircle2 className="w-4 h-4" /> Profile
-                  </button>
+                  <Link to="/profile" className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-gray-50 hover:text-gray-800 text-gray-300 text-md">
+                    <UserCircle2 className="w-5 h-5" /> Profile
+                  </Link>
 
                   <button
-                    className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-red-100 text-red-600 text-sm"
+                    className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-red-100 text-red-600 text-md"
                     onClick={handleLogout}
                   >
-                    <LogOut className="w-4 h-4" /> Logout
+                    <LogOut className="w-5 h-5" /> Logout
                   </button>
                 </div>
               </div>

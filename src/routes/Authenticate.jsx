@@ -4,7 +4,7 @@ import UserDashboard from '../screen/user/UserDashboard';
 import DashboardMain from '../layout/DashboardMain';
 import AdminDashboard from '../screen/admin/AdminDashboard';
 import { useSelector } from 'react-redux';
-import { AuthenicatedRoutes } from './routes';
+import { AuthenicatedRoutes, AuthRoutes } from './routes';
 import UserDirectTeam from '../screen/user/team/UserDirectTeam';
 import UserLevelTeam from '../screen/user/team/UserLevelTeam';
 import UserReferralIncome from '../screen/user/income/UserReferralIncome';
@@ -13,6 +13,7 @@ import UserRoiIncome from '../screen/user/income/UserRoiIncome';
 import UserDeposit from '../screen/user/payment/UserDeposit';
 import UserMakeInvestment from '../screen/user/investment/UserMakeInvestment';
 import UserInvestmentHistory from '../screen/user/investment/UserInvestmentHistory';
+import UserProfile from '../screen/user/profile/UserProfile';
 
 const Authenticate = () => {
     const { role } = useSelector((state) => state.auth);
@@ -76,7 +77,23 @@ const Authenticate = () => {
                         }
                     />
 
+                    <Route
+                        path={AuthenicatedRoutes.USER_PROFILE}
+                        element={
+                            <DashboardMain inner={<UserProfile />} name="User Profile" />
+                        }
+                    />
 
+
+
+                    <Route
+                        path="*"
+                        element={
+                            role === "user"
+                                ? <Navigate to={AuthenicatedRoutes.USER_DASHBOARD} />
+                                : <Navigate to={AuthRoutes.USER_LOGIN} />
+                        }
+                    />
                 </>
             )}
 
@@ -99,14 +116,14 @@ const Authenticate = () => {
                 </>
             )}
 
-            {/* <Route
+            <Route
                 path="*"
                 element={
                     role === "admin"
-                        ? <Navigate to="/admin/dashboard" />
-                        : <Navigate to="/Login" />
+                        ? <Navigate to={AuthenicatedRoutes.ADMIN_DASHBOARD} />
+                        : <Navigate to={AuthRoutes.ADMIN_LOGIN} />
                 }
-            /> */}
+            />
         </Routes>
     );
 };
