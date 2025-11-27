@@ -4,7 +4,7 @@ import UserDashboard from '../screen/user/UserDashboard';
 import DashboardMain from '../layout/DashboardMain';
 import AdminDashboard from '../screen/admin/AdminDashboard';
 import { useSelector } from 'react-redux';
-import { AuthenicatedRoutes, AuthRoutes } from './routes';
+import { AuthenicatedRoutes, AuthRoutes } from '../routes/Routes';
 import UserDirectTeam from '../screen/user/team/UserDirectTeam';
 import UserLevelTeam from '../screen/user/team/UserLevelTeam';
 import UserReferralIncome from '../screen/user/income/UserReferralIncome';
