@@ -1,5 +1,5 @@
 import { BanknoteArrowUp, CircleUser, Coins, LayoutDashboard, User } from "lucide-react";
-import { AuthenicatedRoutes } from "./routes";
+import { AuthenicatedRoutes } from "../routes/Routes";
 
 const SidebarContent = {
     User: [

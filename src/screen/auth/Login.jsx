@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setRole, setToken, setUser } from '../../redux/slices/authSlice';
 import { useMutation } from '@tanstack/react-query';
 import { userLogin } from '../../api/user.api';
-import { AuthenicatedRoutes } from '../../routes/routes';
+import { AuthenicatedRoutes } from '../../routes/Routes';
 import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
 
