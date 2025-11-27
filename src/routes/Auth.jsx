@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from '../layout/LandingPage';
 import Login from '../screen/auth/Login';
-import { AuthRoutes } from './routes';
+import { AuthRoutes } from '../routes/Routes';
 import AuthMain from '../layout/AuthMain';
 import { useSelector } from 'react-redux';
 import Register from '../screen/auth/Register';
