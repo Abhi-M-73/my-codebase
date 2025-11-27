@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { disablePageScroll, enablePageScroll } from "scroll-lock";
+import noscroll from "noscroll";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-scroll";
 
@@ -29,14 +29,18 @@ export default function Header() {
   const toggle = () => {
     setOpen((prev) => {
       const next = !prev;
-      next ? disablePageScroll() : enablePageScroll();
+      if (next) {
+        noscroll.on();  
+      } else {
+        noscroll.off(); 
+      }
       return next;
     });
   };
 
   const closeMobileMenu = () => {
     setOpen(false);
-    enablePageScroll();
+    noscroll.off();
   };
 
   return (
