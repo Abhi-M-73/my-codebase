@@ -2,7 +2,7 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div className="relative flex flex-col items-center gap-4 px-8 py-6 rounded-2xl bg-slate-900/80 border border-slate-700/80 shadow-[0_0_40px_rgba(34,197,94,0.4)]">
 
         {/* Gradient rotating square */}

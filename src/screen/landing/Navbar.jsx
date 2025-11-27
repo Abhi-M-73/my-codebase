@@ -1,27 +1,21 @@
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-scroll";
 
 const NAV_LINKS = [
-  { name: "Home", path: "/" },
-  { name: "About Us", path: "/about" },
-  { name: "Blog", path: "/blog" },
-  { name: "Contact Us", path: "/contact" },
+  { name: "Home", target: "home" },
+  { name: "About Us", target: "about" },
+  { name: "Features", target: "features" },
+  { name: "How It Works", target: "how-it-works" },
+  { name: "FAQ", target: "faq" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (open) {
-      setOpen(false);
-      enablePageScroll();
-    }
-  }, [location.pathname]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -40,13 +34,18 @@ export default function Header() {
     });
   };
 
+  const closeMobileMenu = () => {
+    setOpen(false);
+    enablePageScroll();
+  };
+
   return (
     <header
       className={[
         "fixed top-0 left-0 w-full z-50 transition-all duration-300",
         scrolled
           ? "bg-black/60 border-b border-yellow-500/20 shadow-[0_6px_30px_-10px_rgba(251,191,36,0.25)]"
-          : "bg-black/30 border-b border-white/5"
+          : "bg-black/30 border-b border-white/5",
       ].join(" ")}
       role="banner"
     >
@@ -57,34 +56,44 @@ export default function Header() {
         <div className="h-16 flex items-center justify-between">
           {/* Logo */}
           <button
-            onClick={() => navigate("/")}
+            onClick={() => {
+              // top pe scroll bhi kara sakte ho
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
             className="flex items-center gap-3 group"
             aria-label="Go to home"
           >
-            {/* <img src={nexoLogo1} alt="" className="w-10 h-10" /> */}
             <span className="text-3xl text-white font-extrabold tracking-tight">
-              INVESTMENT <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">KING</span>
+              MLM{" "}
+              <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+                KING
+              </span>
             </span>
             <span className="ml-1 h-2 w-2 rounded-full bg-yellow-400 shadow-[0_0_12px_rgba(251,191,36,0.8)] group-hover:scale-110 transition" />
           </button>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8" aria-label="Primary">
+          <nav
+            className="hidden lg:flex items-center gap-8"
+            aria-label="Primary"
+          >
             {NAV_LINKS.map((link) => (
-              <NavLink
+              <Link
                 key={link.name}
-                to={link.path}
-                className={({ isActive }) =>
-                  [
-                    "relative text-lg font-semibold transition-colors",
-                    "text-slate-200 hover:text-yellow-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/60 rounded",
-                    "after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-yellow-400 after:to-yellow-600 after:transition-all after:duration-300 hover:after:w-full",
-                    isActive ? "text-yellow-300 after:w-full" : ""
-                  ].join(" ")
-                }
+                to={link.target}
+                smooth={true}
+                duration={600}
+                offset={-90} // header ke height ke hisaab se
+                spy={true}
+                activeClass="text-yellow-300"
+                className={[
+                  "relative text-lg font-semibold cursor-pointer transition-colors",
+                  "text-slate-200 hover:text-yellow-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/60 rounded",
+                  "after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-yellow-400 after:to-yellow-600 after:transition-all after:duration-300 hover:after:w-full",
+                ].join(" ")}
               >
                 {link.name}
-              </NavLink>
+              </Link>
             ))}
 
             {/* CTA */}
@@ -123,7 +132,9 @@ export default function Header() {
         onClick={() => open && toggle()}
         className={[
           "lg:hidden fixed inset-0 z-40 transition",
-          open ? "bg-black/60 backdrop-blur-[2px] opacity-100 visible" : "opacity-0 invisible"
+          open
+            ? "bg-black/60 backdrop-blur-[2px] opacity-100 visible"
+            : "opacity-0 invisible",
         ].join(" ")}
       />
 
@@ -134,7 +145,9 @@ export default function Header() {
           "lg:hidden fixed top-[2px] left-0 right-0 z-50 mx-3 rounded-2xl",
           "border border-yellow-400/20 bg-black/90 supports-[backdrop-filter]:backdrop-blur-2xl",
           "transition-all duration-300",
-          open ? "translate-y-[70px] opacity-100" : "-translate-y-10 opacity-0 pointer-events-none"
+          open
+            ? "translate-y-[70px] opacity-100"
+            : "-translate-y-10 opacity-0 pointer-events-none",
         ].join(" ")}
       >
         <nav className="py-4" aria-label="Mobile">
@@ -145,25 +158,25 @@ export default function Header() {
                 style={{ animation: `slideUp 0.35s ease ${0.03 * i}s both` }}
                 className="rounded-lg"
               >
-                <NavLink
-                  to={link.path}
-                  className={({ isActive }) =>
-                    [
-                      "block w-full rounded-xl px-4 py-3 text-2xl font-semibold",
-                      "text-slate-200 hover:text-yellow-300 hover:bg-yellow-500/10",
-                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/60",
-                      isActive ? "text-yellow-300 bg-yellow-500/10" : ""
-                    ].join(" ")
-                  }
+                <Link
+                  to={link.target}
+                  smooth={true}
+                  duration={600}
+                  offset={-80}
+                  onClick={closeMobileMenu}
+                  className="block w-full rounded-xl px-4 py-3 text-xl font-semibold text-slate-200 hover:text-yellow-300 hover:bg-yellow-500/10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/60"
                 >
                   {link.name}
-                </NavLink>
+                </Link>
               </li>
             ))}
             <li style={{ animation: "slideUp 0.35s ease 0.2s both" }}>
               <button
-                onClick={() => navigate("/login")}
-                className="w-full rounded-xl px-4 py-4 text-2xl font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-[0_8px_24px_rgba(251,191,36,0.35)]
+                onClick={() => {
+                  closeMobileMenu();
+                  navigate("/login");
+                }}
+                className="w-full rounded-xl px-4 py-4 text-xl font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-[0_8px_24px_rgba(251,191,36,0.35)]
                            hover:scale-[1.02] active:scale-95 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/60"
               >
                 Join Now
