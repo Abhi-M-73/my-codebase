@@ -8,7 +8,7 @@ const DashboardMain = ({ inner, name = "user", }) => {
     const { email, username } = useSelector((state) => state?.auth?.user) || {};
 
     return (
-        <div className="min-h-screen mainBgColor">
+        <div className="min-h-screen mainBgColor text-white">
             <Sidebar userRole={role} />
             <div className="lg:ml-64">
                 <div className="">

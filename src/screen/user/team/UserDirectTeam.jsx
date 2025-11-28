@@ -7,6 +7,7 @@ const UserDirectTeam = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['directTeam'],
     queryFn: getDirectTeam,
+    staleTime: 5 * 60 * 1000,
   });
 
   const columns = [

@@ -14,6 +14,8 @@ import UserDeposit from '../screen/user/payment/UserDeposit';
 import UserMakeInvestment from '../screen/user/investment/UserMakeInvestment';
 import UserInvestmentHistory from '../screen/user/investment/UserInvestmentHistory';
 import UserProfile from '../screen/user/profile/UserProfile';
+import UserRaiseTicket from '../screen/user/support/UserRaiseTicket';
+import UserRaiseTicketHistory from '../screen/user/support/UserRaiseTicketHistory';
 
 const Authenticate = () => {
     const { role } = useSelector((state) => state.auth);
@@ -78,13 +80,28 @@ const Authenticate = () => {
                     />
 
                     <Route
+                        path={AuthenicatedRoutes.USER_RAISE_TICKET}
+                        element={
+                            <DashboardMain inner={<UserRaiseTicket />} name="Raise Ticket" />
+                        }
+                    />
+
+                    <Route
+                        path={AuthenicatedRoutes.USER_RAISE_TICKET_HISTORY}
+                        element={
+                            <DashboardMain inner={<UserRaiseTicketHistory />} name="Raise Ticket History" />
+                        }
+                    />
+
+
+
+
+                    <Route
                         path={AuthenicatedRoutes.USER_PROFILE}
                         element={
                             <DashboardMain inner={<UserProfile />} name="User Profile" />
                         }
                     />
-
-
 
                     <Route
                         path="*"

@@ -1,25 +1,16 @@
 import React from 'react';
 import { TrendingUp, DollarSign, CreditCard, Wallet, PiggyBank, ArrowUpRight, ArrowDownRight, Calendar, Award, Target, Activity, User } from 'lucide-react';
-import usefetchProfile from '../../hooks/usefetchProfile';
+import useFetchProfile from '../../hooks/usefetchProfile';
 
 const UserDashboard = () => {
-  usefetchProfile();
-  
+  const data = useFetchProfile();
+  console.log("data", data);
+
   const incomeData = [
-    {
-      id: 1,
-      title: "Total Users",
-      value: "125",
-      change: "+12.5%",
-      trend: "up",
-      icon: <User className="w-6 h-6" />,
-      color: "yellow",
-      period: "This Month"
-    },
     {
       id: 2,
       title: "Total Wallet Balance",
-      value: "$200",
+      value: `$${data?.directReferralAmount?.toFixed(2)}`,
       change: "+8.2%",
       trend: "up",
       icon: <Wallet className="w-6 h-6" />,
@@ -29,7 +20,7 @@ const UserDashboard = () => {
     {
       id: 1,
       title: "Total Referrals Income",
-      value: "$125",
+      value: `$${data?.directReferralAmount?.toFixed(2)}`,
       change: "+12.5%",
       trend: "up",
       icon: <DollarSign className="w-6 h-6" />,
@@ -39,7 +30,7 @@ const UserDashboard = () => {
     {
       id: 3,
       title: "Total ROI Income",
-      value: "$60",
+      value: `$${data?.totalEarnings?.toFixed(2)}`,
       change: "+15.8%",
       trend: "up",
       icon: <PiggyBank className="w-6 h-6" />,
@@ -49,7 +40,7 @@ const UserDashboard = () => {
     {
       id: 4,
       title: "Total Level Income",
-      value: "₹5,45,000",
+      value: `$${data?.levelIncome?.toFixed(2)}`,
       change: "-2.3%",
       trend: "down",
       icon: <TrendingUp className="w-6 h-6" />,
@@ -59,7 +50,7 @@ const UserDashboard = () => {
     {
       id: 5,
       title: "Total Investment",
-      value: "₹1,00,000",
+      value: `$${data?.totalInvestment?.toFixed(2)}`,
       change: "+8.2%",
       trend: "up",
       icon: <ArrowUpRight className="w-6 h-6" />,
@@ -69,17 +60,36 @@ const UserDashboard = () => {
     {
       id: 6,
       title: "Total Withdrawal",
-      value: "₹2,00,000",
+      value: `$${data?.totalPayouts?.toFixed(2)}`,
       change: "+12.5%",
       trend: "up",
       icon: <CreditCard className="w-6 h-6" />,
       color: "red",
       period: "This Month"
     },
-    
+    {
+      id: 1,
+      title: "Total Users",
+      value: "125",
+      change: "+12.5%",
+      trend: "up",
+      icon: <User className="w-6 h-6" />,
+      color: "orange",
+      period: "This Month"
+    },
+  {
+      id: 1,
+      title: "Total Direct Users",
+      value: `${data?.referredUsers?.length}`,
+      change: "+12.5%",
+      trend: "up",
+      icon: <User className="w-6 h-6" />,
+      color: "yellow",
+      period: "This Month"
+    },
   ];
 
-  
+
 
   const getColorClasses = (color) => {
     const colors = {
@@ -144,13 +154,13 @@ const UserDashboard = () => {
   return (
     <div className="min-h-screen ">
       <div className="max-w-7xl mx-auto space-y-6">
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {incomeData.map((item) => {
             const colors = getColorClasses(item.color);
             return (
               <div
-                key={item.id}
+                key={item.id + item.title}
                 className="group relative bg-white/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2"
               >
                 <div className={`absolute z--2 inset-0 bg-gradient-to-br ${colors.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
@@ -167,9 +177,8 @@ const UserDashboard = () => {
                     </p>
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${
-                      item.trend === 'up' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                    } group-hover:bg-white/20 group-hover:text-white transition-all duration-300`}>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${item.trend === 'up' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                      } group-hover:bg-white/20 group-hover:text-white transition-all duration-300`}>
                       {item.trend === 'up' ? (
                         <ArrowUpRight className="w-4 h-4" />
                       ) : (
@@ -188,72 +197,51 @@ const UserDashboard = () => {
           })}
         </div>
 
-        {/* User Profile Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-1 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl p-6 text-white">
-            <div className="flex flex-col items-center text-center">
-              <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mb-4 border-4 border-white/30">
-                <User className="w-12 h-12" />
-              </div>
-              <h2 className="text-2xl font-bold mb-2">John Doe</h2>
-              <p className="text-white/80 mb-4">Premium Member</p>
-              <div className="flex gap-4 mb-4">
-                <div className="bg-white/20 rounded-lg px-4 py-2">
-                  <p className="text-sm text-white/70">Member Since</p>
-                  <p className="font-semibold">Jan 2024</p>
-                </div>
-                <div className="bg-white/20 rounded-lg px-4 py-2">
-                  <p className="text-sm text-white/70">Rank</p>
-                  <p className="font-semibold">Diamond</p>
-                </div>
-              </div>
-              <div className="w-full bg-white/20 rounded-lg p-3">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm">Level Progress</span>
-                  <span className="text-sm font-semibold">75%</span>
-                </div>
-                <div className="w-full bg-white/30 rounded-full h-2">
-                  <div className="bg-white rounded-full h-2" style={{width: '75%'}}></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Profile Data Section */}
+        <div className="mt-10 bg-white/10 p-6 rounded-xl shadow-lg backdrop-blur-lg">
+          <h2 className="text-xl font-semibold text-gray-200 mb-4">Profile Details</h2>
 
-          {/* Recent Activity */}
-          <div className="lg:col-span-2 bg-white rounded-2xl shadow-xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-gray-800">Recent Activity</h3>
-              <Activity className="w-6 h-6 text-indigo-600" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-300">Username</p>
+              <h3 className="text-lg font-semibold">{data?.username}</h3>
             </div>
-            <div className="space-y-4">
-              {[
-                { action: 'ROI Credited', amount: '+$25', time: '2 hours ago', icon: <PiggyBank className="w-5 h-5" />, color: 'purple' },
-                { action: 'Referral Bonus', amount: '+$50', time: '5 hours ago', icon: <Award className="w-5 h-5" />, color: 'blue' },
-                { action: 'Withdrawal Processed', amount: '-$100', time: '1 day ago', icon: <ArrowDownRight className="w-5 h-5" />, color: 'red' },
-                { action: 'New Investment', amount: '-$500', time: '2 days ago', icon: <TrendingUp className="w-5 h-5" />, color: 'green' },
-                { action: 'Level Income', amount: '+$75', time: '3 days ago', icon: <Target className="w-5 h-5" />, color: 'orange' }
-              ].map((activity, index) => {
-                const colors = getColorClasses(activity.color);
-                return (
-                  <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200">
-                    <div className="flex items-center gap-4">
-                      <div className={`${colors.light} ${colors.text} w-10 h-10 rounded-lg flex items-center justify-center`}>
-                        {activity.icon}
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-800">{activity.action}</p>
-                        <p className="text-sm text-gray-500">{activity.time}</p>
-                      </div>
-                    </div>
-                    <p className={`font-bold ${activity.amount.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
-                      {activity.amount}
-                    </p>
-                  </div>
-                );
-              })}
+
+            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-300">Email</p>
+              <h3 className="text-lg font-semibold">{data?.email}</h3>
+            </div>
+
+            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-300">Phone</p>
+              <h3 className="text-lg font-semibold">{data?.phone}</h3>
+            </div>
+
+            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-300">Role</p>
+              <h3 className="text-lg font-semibold capitalize">{data?.role}</h3>
+            </div>
+
+            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-300">Referred Users Count</p>
+              <h3 className="text-lg font-semibold">{data?.referredUsers?.length}</h3>
+            </div>
+
+            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-300">Created At</p>
+              <h3 className="text-lg font-semibold">
+                {new Date(data?.createdAt).toLocaleDateString()}
+              </h3>
+            </div>
+
+            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100 md:col-span-2">
+              <p className="text-sm text-gray-300">Referral Code</p>
+              <h3 className="text-lg font-semibold">{data?.referralCode}</h3>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

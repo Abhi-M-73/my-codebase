@@ -1,21 +1,22 @@
+import appLogo from "../assets/logo/logo.png";
 
 export const MainContent = {
-    appName: "New Project",
-    appLogo: "appLogoClr",
+    appName: "MLM King",
+    appLogo: appLogo,
     appURL: "",
-    contactNo: "+98 8969125123",
-    email: "glczone.in@gmail.com",
-    address: "Address, City, Country",
-    telegram_link: "",
-    favIcon: "icon",
+    contactNo: "+98 0000000000",
+    email: "abc@gmail.com",
+    address: "11B S Governors Ave STE 23271, Dover, DE 19904",
+    telegram_link: "abc@xyz",
+    favIcon: appLogo,
 };
 
 export const backendConfig = {
     // base: "http://192.168.1.251:6090/api",
     // origin: "http://192.168.1.251:6090",
 
-    base: "http://192.168.1.16:4000/api",
-    origin: "http://192.168.1.16:4000",
+    base: "http://192.168.1.9:4000/api",
+    origin: "http://192.168.1.9:4000",
 
     // base: "https://api.glccoin.glczone.com/api",
     // origin: "https://api.glccoin.glczone.com",

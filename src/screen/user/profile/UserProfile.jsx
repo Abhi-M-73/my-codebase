@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import ReusableForm from '../../../components/ui/ReusableForm';
-import { useSelector } from 'react-redux';
-import ReusableButton from '../../../components/ui/ReusableButton';
-import { CircleUser, Mail, Phone, User, Share2 } from 'lucide-react';
+import React, { useState } from "react";
+import ReusableForm from "../../../components/ui/ReusableForm";
+import { useSelector } from "react-redux";
+import ReusableButton from "../../../components/ui/ReusableButton";
+import { CircleUser, Mail, Phone, User, Share2, File } from "lucide-react";
 
 const UserProfile = () => {
     const userInfo = useSelector((state) => state.auth?.user);
@@ -13,6 +13,7 @@ const UserProfile = () => {
         email: userInfo?.email || "",
         referralCode: userInfo?.referralCode || "",
         phone: userInfo?.phone || "",
+        profileImage: userInfo?.profileImage || null,
     });
 
     const handleInputChange = (e) => {
@@ -25,9 +26,30 @@ const UserProfile = () => {
         console.log("Update profile with: ", formData);
     };
 
+    // Derived values from userInfo
+    const accountStatus = userInfo?.status ? "Active" : "Inactive";
+    const isActive = Boolean(userInfo?.status);
+
+    const joinedDate = userInfo?.createdAt
+        ? new Date(userInfo.createdAt).toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        })
+        : "—";
+
+    const totalInvestment = userInfo?.totalInvestment ?? 0;
+    const totalEarnings = userInfo?.totalEarnings ?? 0;
+    const level = userInfo?.level ?? "-";
+    const referralCount = Array.isArray(userInfo?.referredUsers)
+        ? userInfo.referredUsers.length
+        : 0;
+
     return (
         <div className="w-full border border-slate-500 rounded-lg shadow-xl backdrop-blur-md p-6 md:p-8 grid grid-cols-1 lg:grid-cols-[1.1fr_1.4fr] gap-8">
+            {/* LEFT SECTION */}
             <div className="flex flex-col items-center gap-6 border-b lg:border-b-0 lg:border-r border-slate-800 pb-6 lg:pb-0 lg:pr-6">
+                {/* Avatar */}
                 <div className="relative">
                     <div className="h-28 w-28 rounded-full bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
                         <span className="text-3xl font-semibold text-white">
@@ -41,39 +63,68 @@ const UserProfile = () => {
                     </div>
                 </div>
 
+                {/* Basic Info */}
                 <div className="text-center space-y-1">
                     <h1 className="text-xl md:text-2xl font-semibold text-white">
                         {userInfo?.username || "User Name"}
                     </h1>
-                    <p className="text-sm text-slate-300 flex items-center gap-2 justify-center ">
-                        <Mail className="h-4 w-4" />
-                        <span>{userInfo?.email || "user@example.com"}</span>
-                    </p>
+
                     {userInfo?.referralCode && (
-                        <p className="text-xs text-emerald-400 bg-emerald-500/10 inline-flex items-center gap-2 px-3 py-1 rounded-full mt-2">
+                        <p className="text-sm text-[var(--btnColor)] bg-emerald-500/10 inline-flex items-center gap-2 px-3 py-1 rounded-full mt-2">
                             <Share2 className="h-3 w-3" />
-                            Referral Code: <span className="font-medium">{userInfo.referralCode}</span>
+                            Referral Code:{" "}
+                            <span className="font-medium">{userInfo.referralCode}</span>
                         </p>
                     )}
                 </div>
 
-                {/* Small stats / info */}
-                <div className="w-full mt-4 grid grid-cols-2 gap-3">
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
-                        <p className="text-xs text-slate-400">Account Status</p>
-                        <p className="text-sm font-semibold text-emerald-400 mt-1">Active</p>
+                <div className="w-full grid grid-cols-2 gap-3 mt-2">
+                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                        <p className="text-xs text-gray-300">Account Status</p>
+                        <p
+                            className={`text-lg font-semibold mt-1 ${isActive ? "text-[var(--btnColor)]" : "text-red-500"
+                                }`}
+                        >
+                            {accountStatus}
+                        </p>
                     </div>
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
-                        <p className="text-xs text-slate-400">Joined</p>
-                        <p className="text-sm font-semibold text-slate-200 mt-1">
-                            {/* Placeholder – actual date aap backend se doge */}
-                            —
+
+                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                        <p className="text-xs text-gray-300">Joined</p>
+                        <p className="text-lg font-semibold text-slate-200 mt-1">
+                            {joinedDate}
+                        </p>
+                    </div>
+                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                        <p className="text-xs text-gray-300">Level</p>
+                        <p className="text-lg font-semibold text-slate-200 mt-1">
+                            {level}
+                        </p>
+                    </div>
+
+                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                        <p className="text-xs text-gray-300">Direct Referrals</p>
+                        <p className="text-lg font-semibold text-slate-200 mt-1">
+                            {referralCount}
+                        </p>
+                    </div>
+
+                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                        <p className="text-xs text-gray-300">Total Investment</p>
+                        <p className="text-lg font-semibold text-[var(--btnColor)] mt-1">
+                            $ {totalInvestment}
+                        </p>
+                    </div>
+
+                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                        <p className="text-xs text-gray-300">Total Earnings</p>
+                        <p className="text-lg font-semibold text-[var(--btnColor)] mt-1">
+                            $ {totalEarnings.toFixed(2)}
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* Right: Editable Form */}
             <div className="space-y-6">
                 <div>
                     <h2 className="text-lg md:text-2xl font-semibold text-white">
@@ -94,7 +145,7 @@ const UserProfile = () => {
                         onChange={handleInputChange}
                         placeholder="Enter your username"
                         required={true}
-                        disabled={true}
+                        disabled={true} // usually username fix hota hai
                         icon={User}
                     />
 
@@ -121,14 +172,13 @@ const UserProfile = () => {
                     />
 
                     <ReusableForm
-                        type="text"
-                        label="Referral Code"
-                        name="referralCode"
-                        value={formData.referralCode}
+                        type="file"
+                        label="Profile Image"
+                        name="profileImage"
+                        value={formData.profileImage}
                         onChange={handleInputChange}
-                        placeholder="Your referral code"
                         required={false}
-                        icon={Share2}
+                        icon={File}
                     />
                 </div>
 

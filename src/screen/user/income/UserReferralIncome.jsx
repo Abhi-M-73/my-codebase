@@ -9,6 +9,7 @@ const UserReferralIncome = () => {
   const { data } = useQuery({
     queryKey: ['directreferralIncome'],
     queryFn: getDirectreferralIncome,
+    staleTime: 5 * 60 * 1000,
   });
 
   const columns = [

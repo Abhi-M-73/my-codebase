@@ -2,15 +2,17 @@ import { useQuery } from '@tanstack/react-query'
 import ReusableDataTable from '../../../components/ui/ReusableDataTable'
 import { getInvestmentHistory } from '../../../api/user.api'
 import { dateFormatter, formatCurrency } from '../../../utils/additionalFn'
+import { Link, useNavigate } from 'react-router-dom'
 
 const UserInvestmentHistory = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['investmentHistory'],
         queryFn: getInvestmentHistory,
-        staleTime: 5 * 60 * 1000, 
+        staleTime: 5 * 60 * 1000,
     });
 
-    console.log("Investment History Data:", data);
+    const navigate = useNavigate();
+
     const columns = [
         { label: '#', key: 'sr', render: (value, row, rowIndex) => rowIndex + 1 },
         { label: 'Investment Amount', key: "amount", render: (value) => formatCurrency(value) },
@@ -30,6 +32,18 @@ const UserInvestmentHistory = () => {
             }
         },
         { label: 'Activation Date', key: 'startDate', render: (value) => dateFormatter(value) },
+        {
+            label: 'Action', key: '_id', render: (value) => {
+                return (
+                    <Link
+                        to={`/roi-income?investmentId=${value}`}
+                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800`}
+                    >
+                        View Roi History
+                    </Link>
+                );
+            }
+        },
     ]
 
     return (

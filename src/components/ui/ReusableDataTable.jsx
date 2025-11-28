@@ -22,9 +22,9 @@ const ReusableDataTable = ({ data = [], columns = [], className = "" }) => {
         let filtered = data;
 
         if (globalFilter) {
-            filtered = filtered.filter((row) =>
+            filtered = filtered?.filter((row) =>
                 Object.values(row).some((val) =>
-                    val?.toString().toLowerCase().includes(globalFilter?.toLowerCase())
+                    val?.toString()?.toLowerCase().includes(globalFilter?.toLowerCase())
                 )
             );
         }
@@ -75,7 +75,7 @@ const ReusableDataTable = ({ data = [], columns = [], className = "" }) => {
     };
 
     const exportToExcel = () => {
-        const exportData = sortedData.map((row, index) => {
+        const exportData = sortedData?.map((row, index) => {
             const obj = { "#": index + 1 }; // SR No
             columns.forEach((col) => {
                 obj[col.label] = col.render ? col.render(row[col.key], row, index) : row[col.key];

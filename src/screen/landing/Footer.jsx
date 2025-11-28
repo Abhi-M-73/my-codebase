@@ -10,6 +10,7 @@ import {
   ArrowRight,
   MessageCircle,
 } from "lucide-react";
+import { MainContent } from "../../utils/mainContent";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -129,7 +130,7 @@ const Footer = () => {
                   <MapPin className="w-6 h-6 sm:w-7 sm:h-7 text-yellow-400 flex-shrink-0 mt-1 group-hover:text-yellow-300 transition-colors" />
                   <div>
                     <p className="text-slate-300 text-sm sm:text-base leading-relaxed group-hover:text-slate-100 transition-colors">
-                      11B S Governors Ave STE 23271, Dover, DE 19904
+                      {MainContent.address}
                     </p>
                   </div>
                 </div>
@@ -138,13 +139,13 @@ const Footer = () => {
               {/* Email */}
               <div className="group cursor-pointer">
                 <a
-                  href="mailto:contact@unitedkings.net"
+                  href={`mailto:${MainContent.email}`}
                   className="flex gap-3 items-start hover:opacity-80 transition-opacity"
                 >
                   <Mail className="w-6 h-6 sm:w-7 sm:h-7 text-yellow-400 flex-shrink-0 mt-1 group-hover:text-yellow-300 transition-colors" />
                   <div>
                     <p className="text-slate-300 text-sm sm:text-base group-hover:text-yellow-200 transition-colors font-medium">
-                      contact@unitedkings.net
+                      {MainContent.email}
                     </p>
                   </div>
                 </a>
@@ -153,7 +154,7 @@ const Footer = () => {
               {/* Telegram */}
               <div className="group cursor-pointer">
                 <a
-                  href="https://t.me/uktyler"
+                  href={MainContent.telegram_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex gap-3 items-start hover:opacity-80 transition-opacity"
@@ -161,7 +162,7 @@ const Footer = () => {
                   <Send className="w-6 h-6 sm:w-7 sm:h-7 text-yellow-400 flex-shrink-0 mt-1 group-hover:text-yellow-300 transition-colors" />
                   <div>
                     <p className="text-slate-300 text-sm sm:text-base group-hover:text-yellow-200 transition-colors font-medium">
-                      Telegram: @uktyler
+                      Telegram: {MainContent.telegram_link}
                     </p>
                   </div>
                 </a>

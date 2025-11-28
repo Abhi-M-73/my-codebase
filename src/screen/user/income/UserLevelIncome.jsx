@@ -1,5 +1,5 @@
 import React from 'react'
-import { getLevelTeam } from '../../../api/user.api';
+import { getLevelIncome } from '../../../api/user.api';
 import ReusableDataTable from '../../../components/ui/ReusableDataTable';
 import { useQuery } from '@tanstack/react-query';
 import { dateFormatter, formatCurrency, formatPercentage, levelButton, maskEmail } from '../../../utils/additionalFn';
@@ -7,7 +7,8 @@ import { dateFormatter, formatCurrency, formatPercentage, levelButton, maskEmail
 const UserLevelIncome = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['levelTeam'],
-    queryFn: getLevelTeam,
+    queryFn: getLevelIncome,
+    staleTime: 5 * 60 * 1000,
   });
 
   const columns = [

@@ -1,4 +1,4 @@
-import { BanknoteArrowUp, CircleUser, Coins, LayoutDashboard, User } from "lucide-react";
+import { BanknoteArrowUp, CircleUser, Coins, LayoutDashboard, MessageCircleQuestionMark, User } from "lucide-react";
 import { AuthenicatedRoutes } from "../routes/Routes";
 
 const SidebarContent = {
@@ -71,6 +71,24 @@ const SidebarContent = {
 
             ],
         },
+        {
+            id: "Support",
+            icon: <MessageCircleQuestionMark />,
+            name: "Support",
+            options: [
+                {
+                    id: "Raise Ticket",
+                    name: "Raise Ticket",
+                    link: AuthenicatedRoutes.USER_RAISE_TICKET,
+                },
+                {
+                    id: "Raise Ticket History",
+                    name: "Raise Ticket History",
+                    link: AuthenicatedRoutes.USER_RAISE_TICKET_HISTORY,
+                },
+            ],
+        },
+
         {
             id: "Profile",
             icon: <CircleUser />,
