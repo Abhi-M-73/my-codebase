@@ -2,7 +2,7 @@ export const AuthRoutes = {
     USER_LOGIN: "/login",
     USER_REGISTER: "/register",
     FORGET_PASSWORD: "/forget-password",
-    
+
     ADMIN_LOGIN: "/admin/login",
 }
 
@@ -24,4 +24,7 @@ export const AuthenicatedRoutes = {
 
 
     ADMIN_DASHBOARD: "/admin/dashboard",
+    ADMIN_TEAM: "/admin/team",
+    ADMIN_TOPUP: "/admin/topup",
+    ADMIN_TOPUP_HISTORY: "/admin/topup-history",
 }

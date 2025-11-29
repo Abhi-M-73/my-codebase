@@ -1,4 +1,4 @@
-import { BanknoteArrowUp, CircleUser, Coins, LayoutDashboard, MessageCircleQuestionMark, User } from "lucide-react";
+import { BadgeDollarSign, BanknoteArrowUp, ChartGantt, CircleUser, Coins, LayoutDashboard, MessageCircleQuestionMark, User } from "lucide-react";
 import { AuthenicatedRoutes } from "../routes/Routes";
 
 const SidebarContent = {
@@ -105,21 +105,33 @@ const SidebarContent = {
             link: AuthenicatedRoutes.ADMIN_DASHBOARD,
         },
         {
-            id: "Level",
-            icon: <LayoutDashboard />,
-            name: "Level",
+            id: "Team",
+            icon: <User />,
+            name: "Team",
             options: [
                 {
-                    id: "Level1",
-                    name: "Level1",
-                    link: "/level/level1",
-                },
-                {
-                    id: "Level2",
-                    name: "Level2",
-                    link: "/level/level2",
+                    id: "All Team",
+                    name: "All Team",
+                    link: AuthenicatedRoutes.ADMIN_TEAM,
                 },
             ],
+        },
+        {
+            id: "Topup",
+            icon: <BadgeDollarSign />,
+            name: "Topup",
+            options: [
+                {
+                    id: "Admin Topup",
+                    name: "Admin Topup",
+                    link: AuthenicatedRoutes.ADMIN_TOPUP,
+                },
+                {
+                    id: "Admin Topup History",
+                    name: "Admin Topup History",
+                    link: AuthenicatedRoutes.ADMIN_TOPUP_HISTORY,
+                }
+            ]
         },
     ],
 };

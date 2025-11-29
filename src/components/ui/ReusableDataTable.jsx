@@ -130,7 +130,7 @@ const ReusableDataTable = ({ data = [], columns = [], className = "" }) => {
 
             {/* 📊 DataTable */}
             <DataTable
-                sortable
+                // sortable
                 value={paginatedData}
                 className="custom-datatable whitespace-nowrap"
                 emptyMessage={
@@ -204,7 +204,7 @@ const ReusableDataTable = ({ data = [], columns = [], className = "" }) => {
             </div>
 
             {/* 🔧 Custom Styling */}
-            <style jsx>{`
+            <style>{`
                 .custom-datatable .p-datatable-thead > tr > th {
                     // background: #1d2630;
                     background: black;

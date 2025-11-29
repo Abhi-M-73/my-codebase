@@ -1,113 +1,77 @@
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { Users, DollarSign, ShoppingCart, TrendingUp } from 'lucide-react';
 
 const AdminDashboard = () => {
   const stats = [
-    { title: 'Total Users', value: '12,458', change: '+12%', icon: Users, color: 'bg-blue-500' },
-    { title: 'Revenue', value: '$45,231', change: '+8%', icon: DollarSign, color: 'bg-green-500' },
-    { title: 'Orders', value: '1,893', change: '+23%', icon: ShoppingCart, color: 'bg-purple-500' },
-    { title: 'Growth', value: '32%', change: '+5%', icon: TrendingUp, color: 'bg-orange-500' }
+    { title: 'Total Users', value: '12,458', icon: Users, color: 'from-blue-500 via-sky-400 to-cyan-400' },
+    { title: 'Revenue', value: '$45,231', icon: DollarSign, color: 'from-emerald-500 via-lime-400 to-teal-400' },
+    { title: 'Orders', value: '1,893', icon: ShoppingCart, color: 'from-purple-500 via-fuchsia-500 to-pink-500' },
+    { title: 'Growth', value: '32%', icon: TrendingUp, color: 'from-orange-500 via-amber-400 to-rose-400' },
   ];
 
-  const salesData = [
-    { month: 'Jan', sales: 4000, users: 2400 },
-    { month: 'Feb', sales: 3000, users: 1398 },
-    { month: 'Mar', sales: 2000, users: 9800 },
-    { month: 'Apr', sales: 2780, users: 3908 },
-    { month: 'May', sales: 1890, users: 4800 },
-    { month: 'Jun', sales: 2390, users: 3800 }
-  ];
-
-  const recentOrders = [
-    { id: '#ORD-001', customer: 'John Doe', amount: '$245', status: 'Completed' },
-    { id: '#ORD-002', customer: 'Jane Smith', amount: '$189', status: 'Pending' },
-    { id: '#ORD-003', customer: 'Mike Johnson', amount: '$432', status: 'Completed' },
-    { id: '#ORD-004', customer: 'Sarah Williams', amount: '$156', status: 'Processing' }
-  ];
 
   return (
-    <div className="min-h-screen">
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        {stats.map((stat, index) => (
-          <div key={index} className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className={`${stat.color} p-3 rounded-lg`}>
-                <stat.icon className="text-white" size={24} />
+    <div className="min-h-screen  text-slate-50">
+      {/* Top Header */}
+      <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+            Admin <span className="text-[var(--btnColor)]">Dashboard</span>
+          </h1>
+          <p className="mt-1 text-sm text-slate-300">
+            Overview of today’s performance and key metrics.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <button className="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800 transition">
+            This Week
+          </button>
+          <button className="rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-sky-500/30 hover:brightness-110 transition">
+            Download Report
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+        {stats.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <div
+              key={index}
+              className="relative overflow-hidden rounded-2xl bg-slate-900/80 border border-slate-800 shadow-[0_18px_45px_rgba(15,23,42,0.8)] p-[1px] group"
+            >
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-60 blur-xl group-hover:opacity-90 transition-opacity`}
+              />
+              <div className="relative h-full w-full rounded-2xl bg-slate-950/90 px-5 py-4 flex flex-col gap-3">
+                <div className="pointer-events-none absolute -right-7 -top-7 h-16 w-16 rotate-45 bg-gradient-to-br from-white/10 via-green-400/60 to-transparent" />
+                <div className="pointer-events-none absolute -left-7 -bottom-7 h-16 w-16 -rotate-45 bg-gradient-to-tr from-white/10 via-yellow-400/60 to-transparent" />
+
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-2xl bg-gray-500/30 p-3 shadow-inner shadow-black/40">
+                      <Icon className="h-6 w-6 text-[var(--btnColor)]" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                        {stat.title}
+                      </p>
+                      <p className="mt-1 text-2xl font-bold text-slate-50">
+                        {stat.value}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                  <span>Compared to last month</span>
+                  <span className="text-sky-300 group-hover:text-sky-200 transition">
+                    View details →
+                  </span>
+                </div>
               </div>
-              <span className="text-green-500 text-sm font-semibold">{stat.change}</span>
             </div>
-            <h3 className="text-gray-500 text-sm">{stat.title}</h3>
-            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold mb-4">Sales Overview</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={salesData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="sales" fill="#3b82f6" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold mb-4">User Growth</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={salesData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="users" stroke="#8b5cf6" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      {/* Recent Orders */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="p-6 border-b">
-          <h2 className="text-lg font-semibold">Recent Orders</h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {recentOrders.map((order, index) => (
-                <tr key={index} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">{order.id}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700">{order.customer}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700">{order.amount}</td>
-                  <td className="px-6 py-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      order.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                      order.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-blue-100 text-blue-800'
-                    }`}>
-                      {order.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+          );
+        })}
       </div>
     </div>
   );

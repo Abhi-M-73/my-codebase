@@ -1,18 +1,17 @@
 import React from 'react';
-import { TrendingUp, DollarSign, CreditCard, Wallet, PiggyBank, ArrowUpRight, ArrowDownRight, Calendar, Award, Target, Activity, User } from 'lucide-react';
+import { TrendingUp, DollarSign, CreditCard, Wallet, PiggyBank, ArrowUpRight, ArrowDownRight, Calendar, Award, Target, Activity, User, Copy } from 'lucide-react';
 import useFetchProfile from '../../hooks/usefetchProfile';
+import { backendConfig, MainContent } from '../../utils/mainContent';
+import toast from 'react-hot-toast';
 
 const UserDashboard = () => {
   const data = useFetchProfile();
-  console.log("data", data);
 
   const incomeData = [
     {
       id: 2,
       title: "Total Wallet Balance",
       value: `$${data?.directReferralAmount?.toFixed(2)}`,
-      change: "+8.2%",
-      trend: "up",
       icon: <Wallet className="w-6 h-6" />,
       color: "green",
       period: "This Month"
@@ -21,8 +20,6 @@ const UserDashboard = () => {
       id: 1,
       title: "Total Referrals Income",
       value: `$${data?.directReferralAmount?.toFixed(2)}`,
-      change: "+12.5%",
-      trend: "up",
       icon: <DollarSign className="w-6 h-6" />,
       color: "blue",
       period: "This Month"
@@ -31,8 +28,6 @@ const UserDashboard = () => {
       id: 3,
       title: "Total ROI Income",
       value: `$${data?.totalEarnings?.toFixed(2)}`,
-      change: "+15.8%",
-      trend: "up",
       icon: <PiggyBank className="w-6 h-6" />,
       color: "purple",
       period: "This Month"
@@ -41,8 +36,6 @@ const UserDashboard = () => {
       id: 4,
       title: "Total Level Income",
       value: `$${data?.levelIncome?.toFixed(2)}`,
-      change: "-2.3%",
-      trend: "down",
       icon: <TrendingUp className="w-6 h-6" />,
       color: "orange",
       period: "Portfolio Value"
@@ -51,8 +44,6 @@ const UserDashboard = () => {
       id: 5,
       title: "Total Investment",
       value: `$${data?.totalInvestment?.toFixed(2)}`,
-      change: "+8.2%",
-      trend: "up",
       icon: <ArrowUpRight className="w-6 h-6" />,
       color: "green",
       period: "This Month"
@@ -61,8 +52,6 @@ const UserDashboard = () => {
       id: 6,
       title: "Total Withdrawal",
       value: `$${data?.totalPayouts?.toFixed(2)}`,
-      change: "+12.5%",
-      trend: "up",
       icon: <CreditCard className="w-6 h-6" />,
       color: "red",
       period: "This Month"
@@ -71,18 +60,14 @@ const UserDashboard = () => {
       id: 1,
       title: "Total Users",
       value: "125",
-      change: "+12.5%",
-      trend: "up",
       icon: <User className="w-6 h-6" />,
       color: "orange",
       period: "This Month"
     },
-  {
+    {
       id: 1,
       title: "Total Direct Users",
       value: `${data?.referredUsers?.length}`,
-      change: "+12.5%",
-      trend: "up",
       icon: <User className="w-6 h-6" />,
       color: "yellow",
       period: "This Month"
@@ -151,10 +136,17 @@ const UserDashboard = () => {
     return colors[color];
   };
 
+
+  const copyReferralLink = () => {
+    const link = `${window.location.origin}/register?ref=${data?.referralCode}`;
+    navigator.clipboard.writeText(link);
+    toast.success("Referral link copied to clipboard.");
+  }
+
+
   return (
     <div className="min-h-screen ">
       <div className="max-w-7xl mx-auto space-y-6">
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {incomeData.map((item) => {
             const colors = getColorClasses(item.color);
@@ -171,20 +163,12 @@ const UserDashboard = () => {
                   <h3 className="text-gray-200 text-sm font-medium mb-2 group-hover:text-white/90 transition-colors duration-300">
                     {item.title}
                   </h3>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <p className="text-3xl font-bold text-gray-100 group-hover:text-white transition-colors duration-300">
-                      {item.value}
-                    </p>
-                  </div>
+
                   <div className="flex items-center justify-between">
-                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${item.trend === 'up' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                      } group-hover:bg-white/20 group-hover:text-white transition-all duration-300`}>
-                      {item.trend === 'up' ? (
-                        <ArrowUpRight className="w-4 h-4" />
-                      ) : (
-                        <ArrowDownRight className="w-4 h-4" />
-                      )}
-                      <span className="text-sm font-semibold">{item.change}</span>
+                    <div className="flex items-baseline gap-2">
+                      <p className="text-3xl font-bold text-gray-100 group-hover:text-white transition-colors duration-300">
+                        {item.value}
+                      </p>
                     </div>
                     <span className="text-xs text-gray-200 group-hover:text-white/70 transition-colors duration-300">
                       {item.period}
@@ -202,42 +186,43 @@ const UserDashboard = () => {
           <h2 className="text-xl font-semibold text-gray-200 mb-4">Profile Details</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
             <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-300">Username</p>
-              <h3 className="text-lg font-semibold">{data?.username}</h3>
+              <p className="text-sm text-gray-200">Username</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)]">{data?.username}</h3>
+            </div>
+            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-200">Email</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)]">{data?.email}</h3>
             </div>
 
             <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-300">Email</p>
-              <h3 className="text-lg font-semibold">{data?.email}</h3>
+              <p className="text-sm text-gray-200">Phone</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)]">{data?.phone}</h3>
             </div>
 
             <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-300">Phone</p>
-              <h3 className="text-lg font-semibold">{data?.phone}</h3>
+              <p className="text-sm text-gray-200">Role</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)] capitalize">{data?.role}</h3>
             </div>
 
             <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-300">Role</p>
-              <h3 className="text-lg font-semibold capitalize">{data?.role}</h3>
-            </div>
-
-            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-300">Referred Users Count</p>
-              <h3 className="text-lg font-semibold">{data?.referredUsers?.length}</h3>
+              <p className="text-sm text-gray-200">Referred Users Count</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)]">{data?.referredUsers?.length}</h3>
             </div>
 
             <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
               <p className="text-sm text-gray-300">Created At</p>
-              <h3 className="text-lg font-semibold">
+              <h3 className="text-lg font-medium text-[var(--btnColor)]">
                 {new Date(data?.createdAt).toLocaleDateString()}
               </h3>
             </div>
 
             <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100 md:col-span-2">
-              <p className="text-sm text-gray-300">Referral Code</p>
-              <h3 className="text-lg font-semibold">{data?.referralCode}</h3>
+              <p className="text-sm text-gray-300">Referral Link</p>
+              <div className='flex items-center gap-4'>
+                <h3 className="text-lg font-medium text-[var(--btnColor)]">{backendConfig.origin}/{data?.referralCode}</h3>
+                <Copy onClick={copyReferralLink} />
+              </div>
             </div>
           </div>
         </div>

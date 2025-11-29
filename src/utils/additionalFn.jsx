@@ -13,17 +13,17 @@ export const dateFormatter = (dateString) => {
 
 export const maskEmail = (email = "") => {
     if (typeof email !== "string" || !email.includes("@")) return email;
-    const [localPart, domain] = email.split("@");
-    if (localPart.length <= 4) {
-        return `${localPart[0] + localPart[1]}***@${domain}`;
-    }
-    const start = localPart.slice(0, 5);
-    const end = localPart.slice(-5);
-    const maskedLength = Math.max(0, localPart.length - (start.length + end.length));
-    const masked = "*".repeat(maskedLength);
-    return `${start}${masked}${end}@${domain}`;
-};
 
+    const [local, domain] = email.split("@");
+
+    // Show minimum 0–3 characters
+    const visibleCount = Math.min(local.length, 3);
+
+    const visible = local.slice(0, visibleCount);
+    const masked = "*".repeat(local.length - visibleCount);
+
+    return `${visible}${masked}@${domain}`;
+};
 
 
 export const maskPhoneNumber = (phoneNumber) => {
@@ -47,8 +47,8 @@ export const formatPercentage = (value) => {
 
 export const legButton = (leg) => {
     return (
-        <button className={`${leg === "left" ? "bg-blue-500" : "bg-green-500"} text-white px-3 py-1 rounded-full capitalize text-xs`}>
-            {leg}
+        <button className={`${leg === "left" ? "bg-blue-600" : leg === "right" ? "bg-green-600" : "bg-red-500"} text-white px-3 py-1 rounded-full capitalize text-xs`}>
+            {leg ? leg : "N/A"}
         </button>
     )
 }

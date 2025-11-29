@@ -1,20 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReusableButton from '../../components/ui/ReusableButton';
 import { Link2, Lock, Mail, Phone, User } from 'lucide-react';
 import ReusableForm from '../../components/ui/ReusableForm';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { userRegister } from '../../api/user.api';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
 
 const Register = () => {
+  const params = useSearchParams();
+  const referralCode = new URLSearchParams(params[0]).get("ref");
+  console.log(referralCode);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     password: '',
-    referralCode: ''
+    referralCode: referralCode || ''
   });
 
   const handleInputChange = (e) => {
@@ -49,6 +53,13 @@ const Register = () => {
     };
     mutate(payload);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (referralCode) {
+      setFormData({ ...formData, referralCode: referralCode });
+    }
+  }, [referralCode]);
 
   if (isPending) return <Loader />;
 

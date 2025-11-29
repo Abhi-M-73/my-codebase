@@ -16,6 +16,9 @@ import UserInvestmentHistory from '../screen/user/investment/UserInvestmentHisto
 import UserProfile from '../screen/user/profile/UserProfile';
 import UserRaiseTicket from '../screen/user/support/UserRaiseTicket';
 import UserRaiseTicketHistory from '../screen/user/support/UserRaiseTicketHistory';
+import AdminAllTeam from '../screen/admin/team/AdminAllTeam';
+import AdminTopup from '../screen/admin/topup/AdminTopup';
+import AdminTopupHistory from '../screen/admin/topup/AdminTopupHistory';
 
 const Authenticate = () => {
     const { role } = useSelector((state) => state.auth);
@@ -128,6 +131,24 @@ const Authenticate = () => {
                         path={AuthenicatedRoutes.ADMIN_DASHBOARD}
                         element={
                             <DashboardMain inner={<AdminDashboard />} name="Admin Dashboard" />
+                        }
+                    />
+                    <Route
+                        path={AuthenicatedRoutes.ADMIN_TEAM}
+                        element={
+                            <DashboardMain inner={<AdminAllTeam />} name="All Team" />
+                        }
+                    />
+                    <Route
+                        path={AuthenicatedRoutes.ADMIN_TOPUP}
+                        element={
+                            <DashboardMain inner={<AdminTopup />} name="Admin Topup" />
+                        }
+                    />
+                    <Route
+                        path={AuthenicatedRoutes.ADMIN_TOPUP_HISTORY}
+                        element={
+                            <DashboardMain inner={<AdminTopupHistory />} name="Admin Topup History" />
                         }
                     />
                 </>
