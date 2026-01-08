@@ -59,7 +59,7 @@ const OtpInputWithButton = ({
                     type="button"
                     onClick={onButtonClick}
                     disabled={disabled || loading}
-                    className="sm:w-auto px-3 py-1  font-semibold rounded-md bg-[var(--btnColor)] hover:bg-[var(--btnHoverColor)] text-white disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="sm:w-auto px-3 py-1  font-semibold rounded-md shine-effect relative bg-[var(--btnColor)] hover:bg-[var(--btnHoverColor)] text-black disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed overflow-hidden inline-flex items-center justify-center gap-2"
                 >
                     {loading ? (
                         <>
@@ -71,6 +71,48 @@ const OtpInputWithButton = ({
                     )}
                 </button>
             </div>
+
+            <style>{`
+        /* Shine animation layer */
+        .shine-effect::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -120%;
+          width: 120%;
+          height: 100%;
+          background: linear-gradient(
+            120deg,
+            transparent 0%,
+            rgba(255,255,255,0.25) 50%,
+            transparent 100%
+          );
+          transform: skewX(-20deg);
+        }
+
+        .shine-effect:hover::before {
+          animation: shineMove 0.9s ease-out forwards;
+        }
+
+        @keyframes shineMove {
+          0% { left: -120%; }
+          100% { left: 120%; }
+        }
+
+        /* Spinner */
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+          width: 20px;
+          height: 20px;
+          border: 3px solid rgba(255,255,255,0.3);
+          border-top-color: white;
+          border-radius: 9999px;
+          animation: spin 0.6s linear infinite;
+        }
+      `}</style>
         </div>
     );
 };

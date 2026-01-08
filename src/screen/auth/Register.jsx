@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
 
-const Register = () => {
+const Register = ({ onNavigate }) => {
   const params = useSearchParams();
   const referralCode = new URLSearchParams(params[0]).get("ref");
   console.log(referralCode);
@@ -145,11 +145,11 @@ const Register = () => {
       </div>
 
       <div>
-        <p className="text-md text-center text-gray-400">
+        <p className="text-md text-center text-gray-400 whitespace-nowrap">
           Already have an account? {""}
-          <Link to="/login" className="text-[var(--btnColor)] font-medium cursor-pointer">
+          <span onClick={() => onNavigate("/login")} className="text-[var(--btnColor)] font-medium cursor-pointer">
             Login
-          </Link>
+          </span>
         </p>
       </div>
     </div>

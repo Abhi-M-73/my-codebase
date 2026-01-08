@@ -4,7 +4,7 @@ import { Lock, Mail, ShieldCheck } from 'lucide-react';
 import ReusableForm from '../../components/ui/ReusableForm';
 import ReusableButton from '../../components/ui/ReusableButton';
 
-const ForgetPassword = () => {
+const ForgetPassword = ({ onNavigate }) => {
     const [formData, setFormData] = useState({
         email: '',
         otp: '',

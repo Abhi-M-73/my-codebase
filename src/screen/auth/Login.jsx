@@ -12,7 +12,7 @@ import { AuthenicatedRoutes, AuthRoutes } from '../../routes/Routes';
 import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
 
-const Login = () => {
+const Login = ({ onNavigate }) => {
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     email: '',
@@ -78,12 +78,12 @@ const Login = () => {
         icon={Lock}
       />
 
-      <Link
-        to={AuthRoutes.FORGET_PASSWORD}
+      <p
+        onClick={() => onNavigate(AuthRoutes.FORGET_PASSWORD)}
         className='text-right text-white text-sm hover:text-[var(--btnColor)] hover:underline'
       >
         <p>Forgot Password ?</p>
-      </Link>
+      </p>
 
       <div className="w-full mt-4">
         <ReusableButton
@@ -98,11 +98,11 @@ const Login = () => {
       </div>
 
       <div>
-        <p className="text-md text-center text-gray-400">
+        <p className="text-md whitespace-nowrap text-center text-gray-400">
           Don&apos;t have an account?{" "}
-          <Link to="/register" className="text-[var(--btnColor)] font-medium cursor-pointer">
+          <span onClick={() => onNavigate("/register")} className="text-[var(--btnColor)] font-medium cursor-pointer">
             Register
-          </Link>
+          </span>
         </p>
       </div>
     </div>
