@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setRole, setToken, setUser } from '../../redux/slices/authSlice';
 import { useMutation } from '@tanstack/react-query';
-import { AuthenicatedRoutes } from '../../routes/Routes';
+import { AuthenticatedRoutes } from '../../routes/Routes';
 import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
 import { adminLogin } from '../../api/admin.api';
@@ -32,7 +32,7 @@ const AdminLogin = () => {
             dispatch(setUser(data?.admin));
             dispatch(setToken(data?.token));
             dispatch(setRole(data?.admin?.role));
-            navigate(AuthenicatedRoutes.ADMIN_DASHBOARD);
+            navigate(AuthenticatedRoutes.ADMIN_DASHBOARD);
         },
         onError: (error) => {
             toast.error(

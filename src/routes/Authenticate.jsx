@@ -4,7 +4,7 @@ import UserDashboard from '../screen/user/UserDashboard';
 import DashboardMain from '../layout/DashboardMain';
 import AdminDashboard from '../screen/admin/AdminDashboard';
 import { useSelector } from 'react-redux';
-import { AuthenicatedRoutes, AuthRoutes } from '../routes/Routes';
+import { AuthenticatedRoutes, AuthRoutes } from '../routes/Routes';
 import UserDirectTeam from '../screen/user/team/UserDirectTeam';
 import UserLevelTeam from '../screen/user/team/UserLevelTeam';
 import UserReferralIncome from '../screen/user/income/UserReferralIncome';
@@ -19,6 +19,12 @@ import UserRaiseTicketHistory from '../screen/user/support/UserRaiseTicketHistor
 import AdminAllTeam from '../screen/admin/team/AdminAllTeam';
 import AdminTopup from '../screen/admin/topup/AdminTopup';
 import AdminTopupHistory from '../screen/admin/topup/AdminTopupHistory';
+import UserWithdraw from '../screen/user/payment/UserWithdraw';
+import UserWithdrawHistory from '../screen/user/payment/UserWithdrawHistory';
+import AdminReferralIncome from '../screen/admin/income/AdminReferralIncome';
+import AdminRoiIncome from '../screen/admin/income/AdminRoiIncome';
+import AdminLevelIncome from '../screen/admin/income/AdminLevelIncome';
+import AdminWithdrawalRequests from '../screen/admin/withdrwal/AdminWithdrawalRequests';
 
 const Authenticate = () => {
     const { role } = useSelector((state) => state.auth);
@@ -28,69 +34,82 @@ const Authenticate = () => {
             {role === "user" && (
                 <>
                     <Route
-                        path={AuthenicatedRoutes.USER_DASHBOARD}
+                        path={AuthenticatedRoutes.USER_DASHBOARD}
                         element={
                             <DashboardMain inner={<UserDashboard />} name="User Dashboard" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_DIRECT_TEAM}
+                        path={AuthenticatedRoutes.USER_DIRECT_TEAM}
                         element={
                             <DashboardMain inner={<UserDirectTeam />} name="User Direct Team" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_LEVEL_TEAM}
+                        path={AuthenticatedRoutes.USER_LEVEL_TEAM}
                         element={
                             <DashboardMain inner={<UserLevelTeam />} name="User Level Team" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_REFERRAL_INCOME}
+                        path={AuthenticatedRoutes.USER_REFERRAL_INCOME}
                         element={
                             <DashboardMain inner={<UserReferralIncome />} name="User Referral Income" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_LEVEL_INCOME}
+                        path={AuthenticatedRoutes.USER_LEVEL_INCOME}
                         element={
                             <DashboardMain inner={<UserLevelIncome />} name="User Level Income" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_ROI_INCOME}
+                        path={AuthenticatedRoutes.USER_ROI_INCOME}
                         element={
                             <DashboardMain inner={<UserRoiIncome />} name="User ROI Income" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_DEPOSIT}
+                        path={AuthenticatedRoutes.USER_DEPOSIT}
                         element={
                             <DashboardMain inner={<UserDeposit />} name="User Deposit" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_MAKE_INVESTMENT}
+                        path={AuthenticatedRoutes.USER_MAKE_INVESTMENT}
                         element={
                             <DashboardMain inner={<UserMakeInvestment />} name="User Make Investment" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_INVESTMENT_HISTORY}
+                        path={AuthenticatedRoutes.USER_INVESTMENT_HISTORY}
                         element={
                             <DashboardMain inner={<UserInvestmentHistory />} name="User Investment History" />
                         }
                     />
 
                     <Route
-                        path={AuthenicatedRoutes.USER_RAISE_TICKET}
+                        path={AuthenticatedRoutes.USER_WITHDRAWAL_REQUESTS}
+                        element={
+                            <DashboardMain inner={<UserWithdraw />} name="User Withdraw" />
+                        }
+                    />
+                    <Route
+                        path={AuthenticatedRoutes.USER_WITHDRAWAL_HISTORY}
+                        element={
+                            <DashboardMain inner={<UserWithdrawHistory />} name="User Withdraw History" />
+                        }
+                    />
+
+                    <Route
+                        path={AuthenticatedRoutes.USER_RAISE_TICKET}
                         element={
                             <DashboardMain inner={<UserRaiseTicket />} name="Raise Ticket" />
                         }
                     />
 
                     <Route
-                        path={AuthenicatedRoutes.USER_RAISE_TICKET_HISTORY}
+                        path={AuthenticatedRoutes.USER_RAISE_TICKET_HISTORY}
                         element={
                             <DashboardMain inner={<UserRaiseTicketHistory />} name="Raise Ticket History" />
                         }
@@ -100,7 +119,7 @@ const Authenticate = () => {
 
 
                     <Route
-                        path={AuthenicatedRoutes.USER_PROFILE}
+                        path={AuthenticatedRoutes.USER_PROFILE}
                         element={
                             <DashboardMain inner={<UserProfile />} name="User Profile" />
                         }
@@ -110,7 +129,7 @@ const Authenticate = () => {
                         path="*"
                         element={
                             role === "user"
-                                ? <Navigate to={AuthenicatedRoutes.USER_DASHBOARD} />
+                                ? <Navigate to={AuthenticatedRoutes.USER_DASHBOARD} />
                                 : <Navigate to={AuthRoutes.USER_LOGIN} />
                         }
                     />
@@ -118,37 +137,60 @@ const Authenticate = () => {
             )}
 
 
-
-
             {role === "admin" && (
                 <>
                     <Route
-                        path={AuthenicatedRoutes.LANDING}
-                        element={<Navigate to={AuthenicatedRoutes.ADMIN_DASHBOARD} replace />}
+                        path={AuthenticatedRoutes.LANDING}
+                        element={<Navigate to={AuthenticatedRoutes.ADMIN_DASHBOARD} replace />}
                     />
 
                     <Route
-                        path={AuthenicatedRoutes.ADMIN_DASHBOARD}
+                        path={AuthenticatedRoutes.ADMIN_DASHBOARD}
                         element={
                             <DashboardMain inner={<AdminDashboard />} name="Admin Dashboard" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.ADMIN_TEAM}
+                        path={AuthenticatedRoutes.ADMIN_TEAM}
                         element={
                             <DashboardMain inner={<AdminAllTeam />} name="All Team" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.ADMIN_TOPUP}
+                        path={AuthenticatedRoutes.ADMIN_TOPUP}
                         element={
                             <DashboardMain inner={<AdminTopup />} name="Admin Topup" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.ADMIN_TOPUP_HISTORY}
+                        path={AuthenticatedRoutes.ADMIN_TOPUP_HISTORY}
                         element={
                             <DashboardMain inner={<AdminTopupHistory />} name="Admin Topup History" />
+                        }
+                    />
+                    <Route
+                        path={AuthenticatedRoutes.ADMIN_REFERRAL_INCOME}
+                        element={
+                            <DashboardMain inner={<AdminReferralIncome />} name="Admin Referral Income" />
+                        }
+                    />
+
+                    <Route
+                        path={AuthenticatedRoutes.ADMIN_ROI_INCOME}
+                        element={
+                            <DashboardMain inner={<AdminRoiIncome />} name="Admin ROI Income" />
+                        }
+                    />
+                    <Route
+                        path={AuthenticatedRoutes.ADMIN_LEVEL_INCOME}
+                        element={
+                            <DashboardMain inner={<AdminLevelIncome />} name="Admin Level Income" />
+                        }
+                    />
+                    <Route
+                        path={AuthenticatedRoutes.ADMIN_WITHDRAWAL_REQUESTS}
+                        element={
+                            <DashboardMain inner={<AdminWithdrawalRequests />} name="Admin Withdrawal Requests" />
                         }
                     />
                 </>
@@ -158,7 +200,7 @@ const Authenticate = () => {
                 path="*"
                 element={
                     role === "admin"
-                        ? <Navigate to={AuthenicatedRoutes.ADMIN_DASHBOARD} />
+                        ? <Navigate to={AuthenticatedRoutes.ADMIN_DASHBOARD} />
                         : <Navigate to={AuthRoutes.ADMIN_LOGIN} />
                 }
             />

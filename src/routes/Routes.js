@@ -7,7 +7,7 @@ export const AuthRoutes = {
 }
 
 
-export const AuthenicatedRoutes = {
+export const AuthenticatedRoutes = {
     LANDING: "/",
     USER_DASHBOARD: "/dashboard",
     USER_DIRECT_TEAM: "/direct-team",
@@ -21,10 +21,16 @@ export const AuthenicatedRoutes = {
     USER_RAISE_TICKET: "/raise-ticket",
     USER_RAISE_TICKET_HISTORY: "/raise-ticket-history",
     USER_PROFILE: "/profile",
+    USER_WITHDRAWAL_REQUESTS: "/withdrawal-requests",
+    USER_WITHDRAWAL_HISTORY: "/withdrawal-history",
 
 
     ADMIN_DASHBOARD: "/admin/dashboard",
     ADMIN_TEAM: "/admin/team",
     ADMIN_TOPUP: "/admin/topup",
     ADMIN_TOPUP_HISTORY: "/admin/topup-history",
+    ADMIN_REFERRAL_INCOME: "/admin/referral-income",
+    ADMIN_ROI_INCOME: "/admin/roi-income",
+    ADMIN_LEVEL_INCOME: "/admin/level-income",
+    ADMIN_WITHDRAWAL_REQUESTS: "/admin/withdrawal-requests",
 }

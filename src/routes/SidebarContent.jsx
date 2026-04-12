@@ -1,5 +1,5 @@
-import { BadgeDollarSign, BanknoteArrowUp, ChartGantt, CircleUser, Coins, LayoutDashboard, MessageCircleQuestionMark, User } from "lucide-react";
-import { AuthenicatedRoutes } from "../routes/Routes";
+import { ArrowBigDownDash, BadgeDollarSign, BanknoteArrowUp, ChartGantt, CircleDollarSign, CircleUser, Coins, LayoutDashboard, MessageCircleQuestionMark, User } from "lucide-react";
+import { AuthenticatedRoutes } from "../routes/Routes";
 
 const SidebarContent = {
     User: [
@@ -7,7 +7,7 @@ const SidebarContent = {
             id: "Dashboard",
             icon: <LayoutDashboard />,
             name: "Dashboard",
-            link: AuthenicatedRoutes.USER_DASHBOARD,
+            link: AuthenticatedRoutes.USER_DASHBOARD,
         },
         {
             id: "Team",
@@ -17,12 +17,12 @@ const SidebarContent = {
                 {
                     id: "Direct Team",
                     name: "Direct Team",
-                    link: AuthenicatedRoutes.USER_DIRECT_TEAM,
+                    link: AuthenticatedRoutes.USER_DIRECT_TEAM,
                 },
                 {
                     id: "Level Team",
                     name: "Level Team",
-                    link: AuthenicatedRoutes.USER_LEVEL_TEAM,
+                    link: AuthenticatedRoutes.USER_LEVEL_TEAM,
                 },
             ],
         },
@@ -34,17 +34,17 @@ const SidebarContent = {
                 {
                     id: "Referral Income",
                     name: "Referral Income",
-                    link: AuthenicatedRoutes.USER_REFERRAL_INCOME,
+                    link: AuthenticatedRoutes.USER_REFERRAL_INCOME,
                 },
                 {
                     id: "Level Income",
                     name: "Level Income",
-                    link: AuthenicatedRoutes.USER_LEVEL_INCOME,
+                    link: AuthenticatedRoutes.USER_LEVEL_INCOME,
                 },
                 {
                     id: "ROI Income",
                     name: "ROI Income",
-                    link: AuthenicatedRoutes.USER_ROI_INCOME,
+                    link: AuthenticatedRoutes.USER_ROI_INCOME,
                 },
             ],
         },
@@ -56,19 +56,36 @@ const SidebarContent = {
                 {
                     id: "Make Investment",
                     name: "Make Investment",
-                    link: AuthenicatedRoutes.USER_MAKE_INVESTMENT,
+                    link: AuthenticatedRoutes.USER_MAKE_INVESTMENT,
                 },
                 {
                     id: "Investment History",
                     name: "Investment History",
-                    link: AuthenicatedRoutes.USER_INVESTMENT_HISTORY,
+                    link: AuthenticatedRoutes.USER_INVESTMENT_HISTORY,
                 },
                 {
                     id: "Deposit",
                     name: "Deposit",
-                    link: AuthenicatedRoutes.USER_DEPOSIT,
+                    link: AuthenticatedRoutes.USER_DEPOSIT,
                 },
 
+            ],
+        },
+        {
+            id: "Withdraw",
+            icon: <ArrowBigDownDash />,
+            name: "Withdraw",
+            options: [
+                {
+                    id: "Withdraw",
+                    name: "Withdraw",
+                    link: AuthenticatedRoutes.USER_WITHDRAWAL_REQUESTS,
+                },
+                {
+                    id: "Withdraw History",
+                    name: "Withdraw History",
+                    link: AuthenticatedRoutes.USER_WITHDRAWAL_HISTORY,
+                },
             ],
         },
         {
@@ -79,12 +96,12 @@ const SidebarContent = {
                 {
                     id: "Raise Ticket",
                     name: "Raise Ticket",
-                    link: AuthenicatedRoutes.USER_RAISE_TICKET,
+                    link: AuthenticatedRoutes.USER_RAISE_TICKET,
                 },
                 {
                     id: "Raise Ticket History",
                     name: "Raise Ticket History",
-                    link: AuthenicatedRoutes.USER_RAISE_TICKET_HISTORY,
+                    link: AuthenticatedRoutes.USER_RAISE_TICKET_HISTORY,
                 },
             ],
         },
@@ -93,7 +110,7 @@ const SidebarContent = {
             id: "Profile",
             icon: <CircleUser />,
             name: "Profile",
-            link: AuthenicatedRoutes.USER_PROFILE,
+            link: AuthenticatedRoutes.USER_PROFILE,
         },
     ],
 
@@ -102,7 +119,7 @@ const SidebarContent = {
             id: "Dashboard",
             icon: <LayoutDashboard />,
             name: "Dashboard",
-            link: AuthenicatedRoutes.ADMIN_DASHBOARD,
+            link: AuthenticatedRoutes.ADMIN_DASHBOARD,
         },
         {
             id: "Team",
@@ -112,9 +129,43 @@ const SidebarContent = {
                 {
                     id: "All Team",
                     name: "All Team",
-                    link: AuthenicatedRoutes.ADMIN_TEAM,
+                    link: AuthenticatedRoutes.ADMIN_TEAM,
                 },
             ],
+        },
+        {
+            id: "Income Reports",
+            icon: <CircleDollarSign />,
+            name: "Income Reports",
+            options: [
+                {
+                    id: "Referral Income",
+                    name: "Referral Income",
+                    link: AuthenticatedRoutes.ADMIN_REFERRAL_INCOME,
+                },
+                {
+                    id: "Level Income",
+                    name: "Level Income",
+                    link: AuthenticatedRoutes.ADMIN_LEVEL_INCOME,
+                },
+                {
+                    id: "ROI Income",
+                    name: "ROI Income",
+                    link: AuthenticatedRoutes.ADMIN_ROI_INCOME,
+                },
+            ],
+        },
+        {
+            id: "Withdraw",
+            icon: <ArrowBigDownDash />,
+            name: "Withdraw",
+            options: [
+                {
+                    id: "Withdraw Requests",
+                    name: "Withdraw Requests",
+                    link: AuthenticatedRoutes.ADMIN_WITHDRAWAL_REQUESTS,
+                },
+            ]
         },
         {
             id: "Topup",
@@ -124,12 +175,12 @@ const SidebarContent = {
                 {
                     id: "Admin Topup",
                     name: "Admin Topup",
-                    link: AuthenicatedRoutes.ADMIN_TOPUP,
+                    link: AuthenticatedRoutes.ADMIN_TOPUP,
                 },
                 {
                     id: "Admin Topup History",
                     name: "Admin Topup History",
-                    link: AuthenicatedRoutes.ADMIN_TOPUP_HISTORY,
+                    link: AuthenticatedRoutes.ADMIN_TOPUP_HISTORY,
                 }
             ]
         },

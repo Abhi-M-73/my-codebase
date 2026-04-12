@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setRole, setToken, setUser } from '../../redux/slices/authSlice';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userLogin } from '../../api/user.api';
-import { AuthenicatedRoutes, AuthRoutes } from '../../routes/Routes';
+import { AuthenticatedRoutes, AuthRoutes } from '../../routes/Routes';
 import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
 
@@ -35,7 +35,7 @@ const Login = ({ onNavigate }) => {
       dispatch(setToken(data?.token));
       dispatch(setRole(data?.user?.role));
       queryClient.invalidateQueries(['fetchProfile']);
-      navigate(AuthenicatedRoutes.USER_DASHBOARD);
+      navigate(AuthenticatedRoutes.USER_DASHBOARD);
     },
     onError: (error) => {
       toast.error(
