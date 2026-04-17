@@ -1,6 +1,6 @@
 import Axios from "../utils/Axios";
 
-const API = "/user"
+const API = "/users"
 
 export const userRegister = async (payload) => {
     const response = await Axios.post(`${API}/register`, payload);

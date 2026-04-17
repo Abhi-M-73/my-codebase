@@ -51,7 +51,7 @@ const closeMobileMenu = () => {
       role="banner"
     >
       {/* thin gradient line */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-600/60 opacity-70" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-600/60 opacity-70" />
 
       <div className="w-full bg-black/80 px-4 sm:px-6 py-5 lg:px-8 mx-auto border-b border-yellow-400/20 ">
         <div className="h-16 flex items-center justify-between">

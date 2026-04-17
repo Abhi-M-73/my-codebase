@@ -4,8 +4,7 @@ import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
 
 const DashboardMain = ({ inner, name = "user", }) => {
-    const { role } = useSelector((state) => state?.auth);
-    const { email, username } = useSelector((state) => state?.auth?.user) || {};
+    const { email, username, role } = useSelector((state) => state?.auth?.user) || {};
 
     return (
         <div className="min-h-screen mainBgColor text-white">

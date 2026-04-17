@@ -2,24 +2,27 @@ import React, { useEffect, useState } from 'react'
 import ReusableButton from '../../components/ui/ReusableButton';
 import { Link2, Lock, Mail, Phone, User } from 'lucide-react';
 import ReusableForm from '../../components/ui/ReusableForm';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { userRegister } from '../../api/user.api';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import Loader from '../../components/ui/Loader';
+import { useDispatch } from 'react-redux';
+import { setToken, setUser } from '../../redux/slices/authSlice';
+import { AuthenticatedRoutes } from '../../routes/Routes';
 
 const Register = ({ onNavigate }) => {
   const params = useSearchParams();
   const referralCode = new URLSearchParams(params[0]).get("ref");
-  console.log(referralCode);
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
     password: '',
     referralCode: referralCode || ''
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +34,9 @@ const Register = ({ onNavigate }) => {
     mutationFn: userRegister,
     onSuccess: (data) => {
       toast.success(data?.message || "Registration successful!");
+      dispatch(setUser(data?.user?.data));
+      dispatch(setToken(data?.token));
+      navigate(AuthenticatedRoutes.USER_DASHBOARD);
     },
     onError: (err) => {
       toast.error(
@@ -40,14 +46,13 @@ const Register = ({ onNavigate }) => {
   });
 
   const handleRegister = () => {
-    if (!formData.name || !formData.email || !formData.phone || !formData.password) {
+    if (!formData.name || !formData.email || !formData.password) {
       toast.error("Please fill in all required fields.");
       return;
     }
     const payload = {
       name: formData.name,
       email: formData.email,
-      phone: formData.phone,
       password: formData.password,
       sponsorCode: formData.referralCode
     };
@@ -85,16 +90,6 @@ const Register = ({ onNavigate }) => {
         placeholder={"Enter Your Email"}
         required={true}
         icon={Mail}
-      />
-      <ReusableForm
-        type={"number"}
-        label={"Phone"}
-        name={"phone"}
-        value={formData.phone}
-        onChange={handleInputChange}
-        placeholder={"Enter Your Phone"}
-        required={true}
-        icon={Phone}
       />
       <ReusableForm
         type={"password"}

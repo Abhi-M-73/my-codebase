@@ -15,8 +15,8 @@ export const backendConfig = {
     // base: "http://192.168.1.251:6090/api",
     // origin: "http://192.168.1.251:6090",
 
-    base: "http://192.168.1.9:4000/api",
-    origin: "http://192.168.1.9:4000",
+    base: "http://192.168.29.178:6050/api",
+    origin: "http://192.168.29.178:6050",
 
     // base: "https://api.glccoin.glczone.com/api",
     // origin: "https://api.glccoin.glczone.com",

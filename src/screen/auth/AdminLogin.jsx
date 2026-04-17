@@ -4,7 +4,7 @@ import { Lock, Mail } from 'lucide-react';
 import ReusableButton from '../../components/ui/ReusableButton';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setRole, setToken, setUser } from '../../redux/slices/authSlice';
+import { setToken, setUser } from '../../redux/slices/authSlice';
 import { useMutation } from '@tanstack/react-query';
 import { AuthenticatedRoutes } from '../../routes/Routes';
 import toast from 'react-hot-toast';
@@ -29,9 +29,8 @@ const AdminLogin = () => {
         mutationFn: adminLogin,
         onSuccess: (data) => {
             toast.success(data?.message || "Admin Login successful!");
-            dispatch(setUser(data?.admin));
+            dispatch(setUser(data?.data));
             dispatch(setToken(data?.token));
-            dispatch(setRole(data?.admin?.role));
             navigate(AuthenticatedRoutes.ADMIN_DASHBOARD);
         },
         onError: (error) => {

@@ -160,7 +160,7 @@ export default function ResponseModel({
 
             {/* Title */}
             <h3
-              className={`text-center text-[22px] font-semibold ${T.color.base}`}
+              className={`text-center text-xl font-semibold ${T.color.base}`}
             >
               {title || T.defaultTitle}
             </h3>

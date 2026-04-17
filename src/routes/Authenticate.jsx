@@ -27,7 +27,7 @@ import AdminLevelIncome from '../screen/admin/income/AdminLevelIncome';
 import AdminWithdrawalRequests from '../screen/admin/withdrwal/AdminWithdrawalRequests';
 
 const Authenticate = () => {
-    const { role } = useSelector((state) => state.auth);
+    const { role } = useSelector((state) => state.auth?.user);
 
     return (
         <Routes>

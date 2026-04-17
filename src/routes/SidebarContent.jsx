@@ -63,12 +63,11 @@ const SidebarContent = {
                     name: "Investment History",
                     link: AuthenticatedRoutes.USER_INVESTMENT_HISTORY,
                 },
-                {
-                    id: "Deposit",
-                    name: "Deposit",
-                    link: AuthenticatedRoutes.USER_DEPOSIT,
-                },
-
+                // {
+                //     id: "Deposit",
+                //     name: "Deposit",
+                //     link: AuthenticatedRoutes.USER_DEPOSIT,
+                // },
             ],
         },
         {

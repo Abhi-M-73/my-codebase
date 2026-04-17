@@ -5,7 +5,7 @@ import ReusableButton from '../../components/ui/ReusableButton';
 import OtpInputWithButton from '../../components/ui/OtpInputWithButton';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setRole, setToken, setUser } from '../../redux/slices/authSlice';
+import { setToken, setUser } from '../../redux/slices/authSlice';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userLogin } from '../../api/user.api';
 import { AuthenticatedRoutes, AuthRoutes } from '../../routes/Routes';
@@ -31,10 +31,8 @@ const Login = ({ onNavigate }) => {
     mutationFn: userLogin,
     onSuccess: (data) => {
       toast.success(data?.message || "Login successful!");
-      dispatch(setUser(data?.user));
+      dispatch(setUser(data?.data));
       dispatch(setToken(data?.token));
-      dispatch(setRole(data?.user?.role));
-      queryClient.invalidateQueries(['fetchProfile']);
       navigate(AuthenticatedRoutes.USER_DASHBOARD);
     },
     onError: (error) => {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { backendConfig } from "./mainContent";
 import { store } from "../redux/store";
-import { setRole, setToken, setUser } from "../redux/slices/authSlice";
+import { setToken, setUser } from "../redux/slices/authSlice";
 
 const Axios = axios.create({
   withCredentials: true,
@@ -26,7 +26,6 @@ Axios.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       store.dispatch(setUser(null));
       store.dispatch(setToken(null));
-      store.dispatch(setRole(null));
       window.location.href = "/login";
     }
     return Promise.reject(error);
