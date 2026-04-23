@@ -12,13 +12,25 @@ export const userLogin = async (payload) => {
     return response.data;
 }
 
+export const getUserProfile = async () => {
+    const response = await Axios.get(`${API}/get-profile`);
+    return response.data;
+}
+
+export const updateUserProfile = async (payload) => {
+    const response = await Axios.put(`${API}/update-profile`, payload, {
+        headers: { "Content-Type": "multipart/form-data" }
+    });
+    return response.data;
+}
+
 export const buyPlanPackage = async (payload) => {
     const response = await Axios.post(`${API}/buy-package`, payload);
     return response.data;
 }
 
 export const makeInvestment = async (payload) => {
-    const response = await Axios.post(`${API}/create-investment`, payload);
+    const response = await Axios.post(`${API}/buy-package`, payload);
     return response.data;
 }
 
@@ -33,7 +45,7 @@ export const userDeposit = async () => {
 }
 
 export const getDirectTeam = async () => {
-    const response = await Axios.get(`${API}/direct-user`);
+    const response = await Axios.get(`${API}/get-direct-team`);
     return response.data;
 }
 
@@ -42,37 +54,41 @@ export const getLevelTeam = async () => {
     return response.data;
 }
 
-export const getDirectreferralIncome = async () => {
-    const response = await Axios.get(`${API}/get-directreferralIncome-history`);
+export const getReferralIncome = async () => {
+    const response = await Axios.get(`${API}/get-referral-income`);
     return response.data;
 }
 
 export const getLevelIncome = async () => {
-    const response = await Axios.get(`${API}/get-levelincome-history`);
+    const response = await Axios.get(`${API}/get-level-income`);
     return response.data;
 }
 
-export const getRoiIncome = async (investmentId) => {
-    const response = await Axios.get(`${API}/get-roi-history/${investmentId}`);
+export const getRoiIncome = async () => {
+    const response = await Axios.get(`${API}/get-roi-income`);
     return response.data;
 }
 
-export const getUserProfile = async () => {
-    const response = await Axios.get(`${API}/get-profile`);
+export const withdrawalRequest = async (payload) => {
+    const response = await Axios.post(`${API}/withdrawal-request`, payload);
     return response.data;
 }
+
+export const getWithdrawalHistory = async () => {
+    const response = await Axios.get(`${API}/withdrawals-history`);
+    return response.data;
+}
+
 
 export const raiseTicket = async (payload) => {
-    const response = await Axios.post(`${API}/raise-ticket`, payload, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
+    const response = await Axios.post(`${API}/support/create`, payload, {
+        headers: { "Content-Type": "multipart/form-data" }
     });
     return response.data;
 }
 
 export const getRaiseTicketHistory = async () => {
-    const response = await Axios.get(`${API}/get-raise-ticket-history`);
+    const response = await Axios.get(`${API}/support/messages`);
     return response.data;
 }
 

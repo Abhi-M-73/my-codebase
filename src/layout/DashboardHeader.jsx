@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bell, LogOut, UserCircle2 } from 'lucide-react';
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../components/ui/Loader';
 
-const DashboardHeader = ({ name = "User", username = "Admin", email = "user@example.com", image }) => {
+const DashboardHeader = () => {
+  const { role, username, email, profileImage } = useSelector((state) => state?.auth?.user) || {};
   const [open, setOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -62,7 +63,7 @@ const DashboardHeader = ({ name = "User", username = "Admin", email = "user@exam
           <div className="min-w-0 hidden sm:block">
             <h1 className="text-xl sm:text-2xl font-bold text-gray-100 truncate">
               <span className="text-[var(--btnColor)]">
-                {name}
+                {username}
               </span>
             </h1>
             <p className="text-xs sm:text-sm text-gray-200 mt-1">{currentDate}</p>
@@ -91,8 +92,8 @@ const DashboardHeader = ({ name = "User", username = "Admin", email = "user@exam
               className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors shrink-0"
             >
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm overflow-hidden">
-                {image ? (
-                  <img src={image} alt="profile" className="w-full h-full object-cover" />
+                {profileImage ? (
+                  <img src={profileImage} alt="profile" className="w-full h-full object-cover" />
                 ) : (
                   username?.charAt(0).toUpperCase()
                 )}
@@ -107,8 +108,8 @@ const DashboardHeader = ({ name = "User", username = "Admin", email = "user@exam
                 {/* User Info */}
                 <div className="flex items-center gap-3 pb-3 border-b border-gray-200">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-bold overflow-hidden">
-                    {image ? (
-                      <img src={image} alt="profile" className="w-full h-full object-cover" />
+                    {profileImage ? (
+                      <img src={profileImage} alt="profile" className="w-full h-full object-cover" />
                     ) : (
                       username?.charAt(0).toUpperCase()
                     )}

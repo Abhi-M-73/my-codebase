@@ -8,8 +8,9 @@ const useFetchProfile = () => {
     const fetchProfile = async () => {
         try {
             const res = await getUserProfile();
+            console.log("Fetched profile:", res);
             if (res?.success) {
-                dispatch(setUser(res.data));
+                dispatch(setUser(res?.user));
                 return res.data;
             }
         } catch (error) {

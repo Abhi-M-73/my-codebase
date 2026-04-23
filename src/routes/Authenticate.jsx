@@ -25,10 +25,12 @@ import AdminReferralIncome from '../screen/admin/income/AdminReferralIncome';
 import AdminRoiIncome from '../screen/admin/income/AdminRoiIncome';
 import AdminLevelIncome from '../screen/admin/income/AdminLevelIncome';
 import AdminWithdrawalRequests from '../screen/admin/withdrwal/AdminWithdrawalRequests';
+import OurPackages from '../screen/user/investment/OurPackages';
 
 const Authenticate = () => {
-    const { role } = useSelector((state) => state.auth?.user);
-
+    const {user} = useSelector((state) => state.auth);
+    console.log("Authenticated user:", user);
+    const role = "user"
     return (
         <Routes>
             {role === "user" && (
@@ -79,6 +81,12 @@ const Authenticate = () => {
                         path={AuthenticatedRoutes.USER_MAKE_INVESTMENT}
                         element={
                             <DashboardMain inner={<UserMakeInvestment />} name="User Make Investment" />
+                        }
+                    />
+                    <Route
+                        path={AuthenticatedRoutes.USER_OUR_PACKAGES}
+                        element={
+                            <DashboardMain inner={<OurPackages />} name="Our Packages" />
                         }
                     />
                     <Route

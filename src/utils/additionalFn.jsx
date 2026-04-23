@@ -53,6 +53,14 @@ export const legButton = (leg) => {
     )
 }
 
+export const statusButton = (status) => {
+    return (
+        <button className={`${status === true ? "bg-green-600" : "bg-red-500"} text-white px-3 py-1 rounded-full capitalize text-xs`}>
+            {status === true ? "Verified" : "Not Verified"}
+        </button>
+    )
+}
+
 export const levelButton = (level) => {
     if (!level) return null;
     let bgColor = 'bg-gray-500';

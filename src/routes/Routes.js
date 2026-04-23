@@ -23,6 +23,7 @@ export const AuthenticatedRoutes = {
     USER_PROFILE: "/profile",
     USER_WITHDRAWAL_REQUESTS: "/withdrawal-requests",
     USER_WITHDRAWAL_HISTORY: "/withdrawal-history",
+    USER_OUR_PACKAGE: "/our-package",
 
 
     ADMIN_DASHBOARD: "/admin/dashboard",

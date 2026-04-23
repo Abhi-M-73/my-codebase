@@ -27,7 +27,7 @@ const UserRaiseTicketHistory = () => {
     },
   });
 
-  const tickets = data?.tickets || [];
+  const tickets = data?.data || [];
 
   const statusTemplate = (status) => {
     const styles = {
@@ -66,7 +66,7 @@ const UserRaiseTicketHistory = () => {
     },
     {
       label: "Message",
-      key: "description",
+      key: "message",
       render: (value) =>
         value ? (value.length > 50 ? value.slice(0, 50) + "..." : value) : "-",
     },
@@ -121,7 +121,7 @@ const UserRaiseTicketHistory = () => {
               </p>
               <p>
                 <strong>Message:</strong>{" "}
-                {selectedTicket.description || "No description"}
+                {selectedTicket.message || "No message"}
               </p>
               <p className="flex items-center gap-1">
                 <strong>Status:</strong> {statusTemplate(selectedTicket.status)}
@@ -138,35 +138,31 @@ const UserRaiseTicketHistory = () => {
             <div>
               <h3 className="text-lg font-semibold mb-2">Attachments</h3>
 
-              {selectedTicket.attachments &&
-                selectedTicket.attachments.length > 0 ? (
-                <div className="space-y-2">
-                  {selectedTicket.attachments.map((file, index) => {
-                    const isImage =
-                      file.url?.includes("/image/upload") ||
-                      file.url?.match(/\.(png|jpg|jpeg|gif|webp)$/i);
-
-                    return (
-                      <div key={file._id || index} className="flex flex-col">
-                        {isImage ? (
-                          <img
-                            src={file.url}
-                            alt={`attachment-${index + 1}`}
-                            className="w-full max-h-40 object-contain rounded border border-gray-300 mb-1"
-                          />
-                        ) : (
-                          <a
-                            href={file.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 underline break-all"
-                          >
-                            View document {index + 1}
-                          </a>
-                        )}
-                      </div>
-                    );
-                  })}
+              {selectedTicket.image &&
+                selectedTicket.image.length > 0 ? (
+                <div className="flex flex-col">
+                  {selectedTicket.image ? (
+                      <a
+                        href={selectedTicket.image}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          src={selectedTicket.image}
+                          alt={`attachment`}
+                          className="w-full max-h-40 object-contain rounded border border-gray-300 mb-1"
+                        />
+                    </a>
+                  ) : (
+                    <a
+                      href={selectedTicket.image}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-blue-600 underline break-all"
+                    >
+                      View document
+                    </a>
+                  )}
                 </div>
               ) : (
                 <p className="text-sm text-gray-500">

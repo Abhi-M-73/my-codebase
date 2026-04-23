@@ -2,33 +2,69 @@ import React, { useState } from "react";
 import ReusableForm from "../../../components/ui/ReusableForm";
 import { useSelector } from "react-redux";
 import ReusableButton from "../../../components/ui/ReusableButton";
-import { CircleUser, Mail, Phone, User, Share2, File } from "lucide-react";
+import { CircleUser, Mail, Phone, User, Share2, File as FileIcon, Wallet } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { updateUserProfile } from "../../../api/user.api";
+import { toast } from "react-hot-toast";
+import useFetchProfile from "../../../hooks/usefetchProfile";
 
 const UserProfile = () => {
+    const { fetchProfile } = useFetchProfile();
     const userInfo = useSelector((state) => state.auth?.user);
-    console.log("Auth Info:", userInfo);
 
     const [formData, setFormData] = useState({
         username: userInfo?.username || "",
         email: userInfo?.email || "",
         referralCode: userInfo?.referralCode || "",
-        phone: userInfo?.phone || "",
+        walletAddress: userInfo?.walletAddress || "",
         profileImage: userInfo?.profileImage || null,
     });
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        const { name, value, files, type } = e.target;
+
+        if (type === "file") {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: files[0], // 👈 actual file
+            }));
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
     };
 
+    const { mutate: updateProfile, isPending } = useMutation({
+        mutationFn: (data) => updateUserProfile(data),
+        onSuccess: (data) => {
+            toast.success(data?.message || "Profile updated successfully!");
+            fetchProfile();
+        },
+        onError: (error) => {
+            toast.error(error?.response?.data?.message || "Failed to update profile.");
+        }
+    })
+
     const handleUpdateProfile = () => {
-        // Yahan pe aap API call / redux action se profile update ka logic likh sakte ho
-        console.log("Update profile with: ", formData);
+        const payload = new FormData();
+
+        payload.append("email", formData.email);
+        payload.append("walletAddress", formData.walletAddress);
+        payload.append("type", "profile");
+
+        // ✅ ONLY send if it's actual file
+        if (formData.profileImage instanceof File) {
+            payload.append("file", formData.profileImage);
+        }
+
+        updateProfile(payload);
     };
 
     // Derived values from userInfo
-    const accountStatus = userInfo?.status ? "Active" : "Inactive";
-    const isActive = Boolean(userInfo?.status);
+    const accountStatus = userInfo?.isVerified === true ? "Active" : "Inactive";
+    const isActive = Boolean(userInfo?.isVerified);
 
     const joinedDate = userInfo?.createdAt
         ? new Date(userInfo.createdAt).toLocaleDateString("en-IN", {
@@ -41,22 +77,30 @@ const UserProfile = () => {
     const totalInvestment = userInfo?.totalInvestment ?? 0;
     const totalEarnings = userInfo?.totalEarnings ?? 0;
     const level = userInfo?.level ?? "-";
-    const referralCount = Array.isArray(userInfo?.referredUsers)
-        ? userInfo.referredUsers.length
-        : 0;
+    const referralCount = userInfo?.referredUsers?.length ?? 0;
 
     return (
-        <div className="w-full border border-slate-500 rounded-lg shadow-xl backdrop-blur-md p-6 md:p-8 grid grid-cols-1 lg:grid-cols-[1.1fr_1.4fr] gap-8">
+        <div className="w-full border border-[var(--btnColor)]/40 rounded-lg shadow-xl backdrop-blur-md p-6 md:p-8 grid grid-cols-1 lg:grid-cols-[1.1fr_1.4fr] gap-8">
             {/* LEFT SECTION */}
             <div className="flex flex-col items-center gap-6 border-b lg:border-b-0 lg:border-r border-slate-800 pb-6 lg:pb-0 lg:pr-6">
                 {/* Avatar */}
                 <div className="relative">
                     <div className="h-28 w-28 rounded-full bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
-                        <span className="text-3xl font-semibold text-white">
-                            {userInfo?.username
-                                ? userInfo.username.charAt(0).toUpperCase()
-                                : "U"}
-                        </span>
+                        {
+                            userInfo?.profileImage ? (
+                                <img
+                                    src={userInfo.profileImage}
+                                    alt="Profile"
+                                    className="h-full w-full rounded-full object-cover"
+                                />
+                            ) : (
+                                <span className="text-3xl font-semibold text-white">
+                                    {userInfo?.username
+                                        ? userInfo.username.charAt(0).toUpperCase()
+                                        : "U"}
+                                </span>
+                            )
+                        }
                     </div>
                     <div className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-emerald-500 flex items-center justify-center shadow-md">
                         <CircleUser className="h-5 w-5 text-white" />
@@ -79,7 +123,7 @@ const UserProfile = () => {
                 </div>
 
                 <div className="w-full grid grid-cols-2 gap-3 mt-2">
-                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                    <div className="border border-[var(--btnColor)]/40 rounded-xl p-3 text-center">
                         <p className="text-xs text-gray-300">Account Status</p>
                         <p
                             className={`text-lg font-semibold mt-1 ${isActive ? "text-[var(--btnColor)]" : "text-red-500"
@@ -89,37 +133,37 @@ const UserProfile = () => {
                         </p>
                     </div>
 
-                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                    <div className="border border-[var(--btnColor)]/40 rounded-xl p-3 text-center">
                         <p className="text-xs text-gray-300">Joined</p>
                         <p className="text-lg font-semibold text-slate-200 mt-1">
                             {joinedDate}
                         </p>
                     </div>
-                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                    <div className="border border-[var(--btnColor)]/40 rounded-xl p-3 text-center">
                         <p className="text-xs text-gray-300">Level</p>
                         <p className="text-lg font-semibold text-slate-200 mt-1">
                             {level}
                         </p>
                     </div>
 
-                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                    <div className="border border-[var(--btnColor)]/40 rounded-xl p-3 text-center">
                         <p className="text-xs text-gray-300">Direct Referrals</p>
                         <p className="text-lg font-semibold text-slate-200 mt-1">
                             {referralCount}
                         </p>
                     </div>
 
-                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                    <div className="border border-[var(--btnColor)]/40 rounded-xl p-3 text-center">
                         <p className="text-xs text-gray-300">Total Investment</p>
                         <p className="text-lg font-semibold text-[var(--btnColor)] mt-1">
-                            $ {totalInvestment}
+                            $ {totalInvestment?.toFixed(2)}
                         </p>
                     </div>
 
-                    <div className="border border-slate-600 rounded-xl p-3 text-center">
+                    <div className="border border-[var(--btnColor)]/40 rounded-xl p-3 text-center">
                         <p className="text-xs text-gray-300">Total Earnings</p>
                         <p className="text-lg font-semibold text-[var(--btnColor)] mt-1">
-                            $ {totalEarnings.toFixed(2)}
+                            $ {totalEarnings?.toFixed(2)}
                         </p>
                     </div>
                 </div>
@@ -162,13 +206,13 @@ const UserProfile = () => {
 
                     <ReusableForm
                         type="text"
-                        label="Phone"
-                        name="phone"
-                        value={formData.phone}
+                        label="wallet address"
+                        name="walletAddress"
+                        value={formData.walletAddress}
                         onChange={handleInputChange}
-                        placeholder="Enter your phone number"
+                        placeholder="Enter your wallet address"
                         required={false}
-                        icon={Phone}
+                        icon={Wallet}
                     />
 
                     <ReusableForm
@@ -178,7 +222,7 @@ const UserProfile = () => {
                         value={formData.profileImage}
                         onChange={handleInputChange}
                         required={false}
-                        icon={File}
+                        icon={FileIcon}
                     />
                 </div>
 
@@ -186,8 +230,8 @@ const UserProfile = () => {
                     <ReusableButton
                         label="Update Profile"
                         onClick={handleUpdateProfile}
-                        loading={false}
-                        disabled={false}
+                        loading={isPending}
+                        disabled={isPending}
                         icon={CircleUser}
                         variant="primary"
                         type="button"

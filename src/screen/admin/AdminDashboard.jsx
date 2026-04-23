@@ -5,7 +5,6 @@ const AdminDashboard = () => {
     directReferralAmount: 0,
     directReferralCount: 0,
     totalEarnings: 0,
-    totalReferrals: 0,
     totalPayouts: 0,
     totalUsers: 0,
     totalOrders: 0,

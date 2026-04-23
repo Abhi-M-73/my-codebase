@@ -54,7 +54,7 @@ const Register = ({ onNavigate }) => {
       name: formData.name,
       email: formData.email,
       password: formData.password,
-      sponsorCode: formData.referralCode
+      referredBy: formData.referralCode
     };
     mutate(payload);
   };

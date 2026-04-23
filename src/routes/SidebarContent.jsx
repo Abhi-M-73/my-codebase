@@ -5,13 +5,13 @@ const SidebarContent = {
     User: [
         {
             id: "Dashboard",
-            icon: <LayoutDashboard />,
+            icon: <LayoutDashboard className="text-red-500" />,
             name: "Dashboard",
             link: AuthenticatedRoutes.USER_DASHBOARD,
         },
         {
             id: "Team",
-            icon: <User />,
+            icon: <User className="text-blue-400" />,
             name: "Team",
             options: [
                 {
@@ -28,7 +28,7 @@ const SidebarContent = {
         },
         {
             id: "Income",
-            icon: <Coins />,
+            icon: <Coins className="text-green-400" />,
             name: "Income",
             options: [
                 {
@@ -50,7 +50,7 @@ const SidebarContent = {
         },
         {
             id: "Investment",
-            icon: <BanknoteArrowUp />,
+            icon: <BanknoteArrowUp className="text-yellow-400" />,
             name: "Investment",
             options: [
                 {
@@ -63,6 +63,7 @@ const SidebarContent = {
                     name: "Investment History",
                     link: AuthenticatedRoutes.USER_INVESTMENT_HISTORY,
                 },
+                
                 // {
                 //     id: "Deposit",
                 //     name: "Deposit",
@@ -72,7 +73,7 @@ const SidebarContent = {
         },
         {
             id: "Withdraw",
-            icon: <ArrowBigDownDash />,
+            icon: <ArrowBigDownDash className="text-red-400" />,
             name: "Withdraw",
             options: [
                 {
@@ -89,7 +90,7 @@ const SidebarContent = {
         },
         {
             id: "Support",
-            icon: <MessageCircleQuestionMark />,
+            icon: <MessageCircleQuestionMark className="text-blue-400" />,
             name: "Support",
             options: [
                 {
@@ -107,7 +108,7 @@ const SidebarContent = {
 
         {
             id: "Profile",
-            icon: <CircleUser />,
+            icon: <CircleUser className="text-orange-400" />,
             name: "Profile",
             link: AuthenticatedRoutes.USER_PROFILE,
         },

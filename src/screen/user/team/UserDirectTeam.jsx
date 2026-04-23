@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import ReusableDataTable from '../../../components/ui/ReusableDataTable'
 import { getDirectTeam } from '../../../api/user.api'
-import { dateFormatter, formatCurrency, legButton, maskEmail } from '../../../utils/additionalFn'
+import { dateFormatter, formatCurrency, legButton, maskEmail, statusButton } from '../../../utils/additionalFn'
 
 const UserDirectTeam = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['directTeam'],
     queryFn: getDirectTeam,
-    staleTime: 5 * 60 * 1000,
+    // staleTime: 5 * 60 * 1000,
   });
 
   const columns = [
@@ -17,14 +17,14 @@ const UserDirectTeam = () => {
     { label: 'Total Earnings', key: 'totalEarnings', render: (value) => formatCurrency(value) },
     { label: 'Total Investment', key: 'totalInvestment', render: (value) => formatCurrency(value) },
     { label: 'Referral Code', key: 'referralCode' },
-    { label: 'Position', key: 'position', render: (value) => legButton(value) },
+    { label: 'Status', key: 'isVerified', render: (value) => statusButton(value) },
     { label: 'Joined At', key: 'createdAt', render: (value) => dateFormatter(value) },
   ]
 
   return (
     <div>
       <ReusableDataTable
-        data={data?.data?.referredUsers || []}
+        data={data?.data || []}
         columns={columns}
         loading={isLoading}
       />

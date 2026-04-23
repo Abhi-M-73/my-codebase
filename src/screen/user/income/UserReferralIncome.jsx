@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
-import { getDirectreferralIncome } from '../../../api/user.api';
+import { getReferralIncome } from '../../../api/user.api';
 import Loader from '../../../components/ui/Loader';
 import ReusableDataTable from '../../../components/ui/ReusableDataTable';
 import { dateFormatter, formatCurrency, formatPercentage, levelButton, maskEmail } from '../../../utils/additionalFn';
 
 const UserReferralIncome = () => {
   const { data } = useQuery({
-    queryKey: ['directreferralIncome'],
-    queryFn: getDirectreferralIncome,
+    queryKey: ['getReferralIncome'],
+    queryFn: getReferralIncome,
     staleTime: 5 * 60 * 1000,
   });
 
